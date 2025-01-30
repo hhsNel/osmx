@@ -99,7 +99,7 @@ void parse_osmx(const char *filename) {
 				}
 			} else if (strcmp(line, "\tText:\n") == 0) {
 				reading_text = 1;  // Start capturing multi-line text
-			} else if (reading_text && strcmp(line, "\nMetadata:\n") != 0) {
+			} else if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
 				// If it's part of text, append with a newline for readability
 				strcat(current->text, line + 1);  // Skip the tab character
 			}
@@ -108,16 +108,20 @@ void parse_osmx(const char *filename) {
 	fclose(file);
 }
 
+void print_entry(Entry entry) {
+	printf("\nEntry: %s\nCost: %s\nType: %s\nMainType: %s\nText: %s\n",
+		entry.name, entry.cost, entry.type, entry.mainType, entry.text);
+	if (strlen(entry.power) > 0 && strlen(entry.toughness) > 0) {
+		printf("Power/Toughness: %s/%s\n", entry.power, entry.toughness);
+	}
+	if (strlen(entry.loyalty) > 0) {
+		printf("Loyalty: %s\n", entry.loyalty);
+	}
+}
+
 void prompt_user() {
 	for (int i = 0; i < entry_count; i++) {
-		printf("\nEntry: %s\nCost: %s\nType: %s\nMainType: %s\nText: %s\n",
-			entries[i].name, entries[i].cost, entries[i].type, entries[i].mainType, entries[i].text);
-		if (strlen(entries[i].power) > 0 && strlen(entries[i].toughness) > 0) {
-			printf("Power/Toughness: %s/%s\n", entries[i].power, entries[i].toughness);
-		}
-		if (strlen(entries[i].loyalty) > 0) {
-			printf("Loyalty: %s\n", entries[i].loyalty);
-		}
+		print_entry(entries[i]);
 		printf("[A]pprove, [R]eject, [E]dit? ");
 		char choice;
 		scanf(" %c", &choice);
@@ -135,7 +139,7 @@ void prompt_user() {
 		
 		if (choice == 'E' || choice == 'e') {
 			while (1) {
-				printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (D)one: ");
+				printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (L)ist, (D)one: ");
 				char edit_choice;
 				scanf(" %c", &edit_choice);
 				getchar();
@@ -168,6 +172,8 @@ void prompt_user() {
 						}
 						strcat(entries[i].text, buffer);
 					}
+				} else if (edit_choice == 'L' || edit_choice == 'l') {
+					print_entry(entries[i]);
 				} else if (edit_choice == 'D' || edit_choice == 'd') {
 					break;
 				}
