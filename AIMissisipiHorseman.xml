@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cockatrice_carddatabase version="4">
+  <sets>
+  <set>
+  <name>AMH</name>
+  <longname>AI Generated Missisipi Horseman</longname>
+  <settype>Custom</settype>
+  <releasedate>2025-01-30</releasedate>
+</set>
+  </sets>
+  <cards>
+  <card>
+	<name>Invocation of Ruin
+</name>
+	<text> Reveal cards from the top of your library until you reveal a noncreature spell with mana value greater than three and less than seven. You may cast it without paying its mana cost. Then, shuffle.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>2R</manacost>
+	  <cmc>3</cmc>
+	  <colors>R</colors>
+	  <coloridentity>R</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Celestial Infusion
+</name>
+	<text>Cascade.
+Gain 3 life.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>2W</manacost>
+	  <cmc>3</cmc>
+	  <colors>W</colors>
+	  <coloridentity>W</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Singularity’s Wake
+</name>
+	<text>As long as Singularitys Wake is in your graveyard or exile, if a card you own would be put into your graveyard or exiled, put it on the bottom of your library instead.
+</text>
+	<prop>
+	  <type>Legendary Artifact</type>
+	  <maintype>Artifact</maintype>
+	  <manacost>0</manacost>
+	  <cmc>0</cmc>
+	  <colors>C</colors>
+	  <coloridentity>C</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Planar Fracture
+</name>
+	<text>Cascade.
+Return up to one target nonland permanent to its owner's hand.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>3G</manacost>
+	  <cmc>4</cmc>
+	  <colors>G</colors>
+	  <coloridentity>G</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Temporal Outburst
+</name>
+	<text>Cascade.
+Each opponent sacrifices a creature or artifact.
+</text>
+	<prop>
+	  <type>Instant</type>
+	  <maintype>Instant</maintype>
+	  <manacost>3U</manacost>
+	  <cmc>4</cmc>
+	  <colors>U</colors>
+	  <coloridentity>U</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Cataclysmic Collapse
+</name>
+	<text>Cascade.
+Destroy all nonbasic lands.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>4B</manacost>
+	  <cmc>5</cmc>
+	  <colors>B</colors>
+	  <coloridentity>B</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Ethereal Tumult
+</name>
+	<text>Cascade.
+Shuffle all creatures into their owners' libraries.
+</text>
+	<prop>
+	  <type>Instant</type>
+	  <maintype>Instant</maintype>
+	  <manacost>5W</manacost>
+	  <cmc>6</cmc>
+	  <colors>W</colors>
+	  <coloridentity>W</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Chrono Rupture
+</name>
+	<text>Cascade.
+Exile all graveyards.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>5U</manacost>
+	  <cmc>6</cmc>
+	  <colors>U</colors>
+	  <coloridentity>U</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Boseiju’s Echo
+</name>
+	<text>T: Add G.
+	{1}, T, Sacrifice Boseijuâ€™s Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
+</text>
+	<prop>
+	  <type>Land</type>
+	  <maintype>Land</maintype>
+	  <manacost>0</manacost>
+	  <cmc>0</cmc>
+	  <colors>C</colors>
+	  <coloridentity>C</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Otawara’s Reflection
+</name>
+	<text>	T: Add U.
+	{1}, T, Sacrifice Otawaraâ€™s Reflection: Return target nonland permanent to its ownerâ€™s hand. That permanentâ€™s controller may search their library for a land card and put it onto the battlefield tapped.
+</text>
+	<prop>
+	  <type>Land</type>
+	  <maintype>Land</maintype>
+	  <manacost>0</manacost>
+	  <cmc>0</cmc>
+	  <colors>C</colors>
+	  <coloridentity>C</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Forbidden Hollow
+</name>
+	<text>	T: Add C.
+	ETB tapped.
+	{1}, T: The next spell you cast this turn canâ€™t be countered.
+</text>
+	<prop>
+	  <type>Land</type>
+	  <maintype>Land</maintype>
+	  <manacost>0</manacost>
+	  <cmc>0</cmc>
+	  <colors>C</colors>
+	  <coloridentity>C</coloridentity>
+	</prop>
+  </card>
+  <card>
+	<name>Sunken Cavern
+</name>
+	<text>	T: Add C.
+	T: Add U or B. Sunken Cavern deals 1 damage to you if you use colored mana.
+</text>
+	<prop>
+	  <type>Land</type>
+	  <maintype>Land</maintype>
+	  <manacost>0</manacost>
+	  <cmc>0</cmc>
+	  <colors>C</colors>
+	  <coloridentity>C</coloridentity>
+	</prop>
+  </card>
+  </cards>
+</cockatrice_carddatabase>
