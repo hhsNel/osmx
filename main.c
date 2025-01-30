@@ -139,7 +139,7 @@ void prompt_user() {
 		
 		if (choice == 'E' || choice == 'e') {
 			while (1) {
-				printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (L)ist, (D)one: ");
+				printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (V)iew, (D)one: ");
 				char edit_choice;
 				scanf(" %c", &edit_choice);
 				getchar();
@@ -172,7 +172,7 @@ void prompt_user() {
 						}
 						strcat(entries[i].text, buffer);
 					}
-				} else if (edit_choice == 'L' || edit_choice == 'l') {
+				} else if (edit_choice == 'V' || edit_choice == 'v') {
 					print_entry(entries[i]);
 				} else if (edit_choice == 'D' || edit_choice == 'd') {
 					break;
