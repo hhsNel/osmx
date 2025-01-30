@@ -1,0 +1,120 @@
+Invocation of Ruin
+	Cost: 2R
+	Type: Sorcery
+	MainType: Sorcery
+	Text:
+	Reveal cards from the top of your library until you reveal a noncreature spell with mana value 4-6.
+	You may cast it without paying its mana cost. Then, shuffle.
+	Metadata:
+		Rarity: Rare
+
+Celestial Infusion
+	Cost: 2W
+	Type: Sorcery
+	MainType: Sorcery
+	Text:
+	Cascade.
+	Gain 3 life.
+	Metadata:
+		Rarity: Rare
+
+Singularity’s Wake
+	Cost: 0
+	Type: Legendary Artifact
+	MainType: Artifact
+	Text:
+	If Singularity’s Wake is in your graveyard or exile, then if a card you own would be put into your graveyard or exiled, 
+	put it on the bottom of your library instead.
+	Metadata:
+		Rarity: Mythic
+
+Planar Fracture
+	Cost: 3G
+	Type: Sorcery
+	MainType: Sorcery
+	Text:
+	Cascade.
+	Return up to one target nonland permanent to its owner's hand.
+	Metadata:
+		Rarity: Rare
+
+Temporal Outburst
+	Cost: 3U
+	Type: Instant
+	MainType: Instant
+	Text:
+	Cascade.
+	Each opponent sacrifices a creature or artifact.
+	Metadata:
+		Rarity: Uncommon
+
+Cataclysmic Collapse
+	Cost: 4B
+	Type: Sorcery
+	MainType: Sorcery
+	Text:
+	Cascade.
+	Destroy all nonbasic lands.
+	Metadata:
+		Rarity: Rare
+
+Ethereal Tumult
+	Cost: 5W
+	Type: Instant
+	MainType: Instant
+	Text:
+	Cascade.
+	Shuffle all creatures into their owners' libraries.
+	Metadata:
+		Rarity: Mythic
+
+Chrono Rupture
+	Cost: 5U
+	Type: Sorcery
+	MainType: Sorcery
+	Text:
+	Cascade.
+	Exile all graveyards.
+	Metadata:
+		Rarity: Rare
+
+Boseiju’s Echo
+	Cost: 0
+	Type: Land
+	MainType: Land
+	Text:
+	T: Add G.
+	{1}, T, Sacrifice Boseiju’s Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
+	Metadata:
+		Rarity: Rare
+
+Otawara’s Reflection
+	Cost: 0
+	Type: Land
+	MainType: Land
+	Text:
+	T: Add U.
+	{1}, T, Sacrifice Otawara’s Reflection: Return target nonland permanent to its owner’s hand. That permanent’s controller may search their library for a land card and put it onto the battlefield tapped.
+	Metadata:
+		Rarity: Rare
+
+Forbidden Hollow
+	Cost: 0
+	Type: Land
+	MainType: Land
+	Text:
+	T: Add C.
+	ETB tapped.
+	{1}, T: The next spell you cast this turn can’t be countered.
+	Metadata:
+		Rarity: Rare
+
+Sunken Cavern
+	Cost: 0
+	Type: Land
+	MainType: Land
+	Text:
+	T: Add C.
+	T: Add U or B. Sunken Cavern deals 1 damage to you if you use colored mana.
+	Metadata:
+		Rarity: Uncommon
