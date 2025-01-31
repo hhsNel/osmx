@@ -105,6 +105,8 @@ void parse_osmx(const char *filename) {
 				}
 			} else if (strcmp(line, "\tText:\n") == 0) {
 				reading_text = 1;  // Start capturing multi-line text
+			} else if (strcmp(line, "\tMetadata:\n") == 0) {
+				reading_text = 0;
 			}
 		}
 	}
@@ -123,8 +125,8 @@ void print_entry(Entry entry) {
 }
 
 int search_entries(const char *query, int start_index) {
-	for (int j = 0; j < entry_count; j++) {
-		int index = (start_index + j) % entry_count;
+	for (int i = 0; i < entry_count; i++) {
+		int index = (start_index + i) % entry_count;
 
 		if (strstr(entries[index].name, query) || strstr(entries[index].text, query)) {
 			return index;
@@ -135,17 +137,25 @@ int search_entries(const char *query, int start_index) {
 }
 
 void prompt_user() {
-	for (int i = 0; i < entry_count;) {
+	int i = 0;
+	while(1) {
 		print_entry(entries[i]);
-		printf("(A)pprove, (R)eject, (E)dit, (S)earch? ");
+		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor? ");
 		char choice;
 		scanf(" %c", &choice);
 		getchar();
 		
 		switch(choice) {
+			case 'Q':
+			case 'q':
+				return;
 			case 'A':
 			case 'a':
+			case 'j':
 				++i;
+				break;
+			case 'k':
+				--i;
 				break;
 			case 'R':
 			case 'r':
@@ -209,7 +219,7 @@ void prompt_user() {
 				int found = search_entries(search, (i + 1) % entry_count);
 
 				if (found != -1) {
-					i = found - 1;
+					i = found;
 				} else {
 					printf("No matching entries found.\n");
 				}
