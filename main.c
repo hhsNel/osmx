@@ -22,14 +22,16 @@ Entry entries[MAX_ENTRIES];
 int entry_count = 0;
 
 void parse_osmx(const char *filename);
+int search_entries(const char *query, int start_index);
 void prompt_user();
 void write_xml(const char *filename, const char *set_name, const char *longname, const char *release_date);
 int calculate_cmc(const char *cost);
 void get_unique_colors(const char *cost, char *colors);
 
-int main() {
+int main(int argc, char **argv) {
 	char input_file[MAX_LINE], output_file[MAX_LINE];
 	char set_name[MAX_LINE], longname[MAX_LINE], release_date[MAX_LINE];
+
 	
 	printf("Enter the .osmx filename: ");
 	scanf("%s", input_file);
@@ -120,65 +122,98 @@ void print_entry(Entry entry) {
 	}
 }
 
+int search_entries(const char *query, int start_index) {
+	for (int j = 0; j < entry_count; j++) {
+		int index = (start_index + j) % entry_count;
+
+		if (strstr(entries[index].name, query) || strstr(entries[index].text, query)) {
+			return index;
+		}
+	}
+
+	return -1;  // No match found
+}
+
 void prompt_user() {
-	for (int i = 0; i < entry_count; i++) {
+	for (int i = 0; i < entry_count;) {
 		print_entry(entries[i]);
-		printf("[A]pprove, [R]eject, [E]dit? ");
+		printf("(A)pprove, (R)eject, (E)dit, (S)earch? ");
 		char choice;
 		scanf(" %c", &choice);
 		getchar();
 		
-		if (choice == 'R' || choice == 'r') {
-			printf("Entry rejected.\n");
-			for (int j = i; j < entry_count - 1; j++) {
-				entries[j] = entries[j + 1];
-			}
-			entry_count--;
-			i--;
-			continue;
-		}
-		
-		if (choice == 'E' || choice == 'e') {
-			while (1) {
-				printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (V)iew, (D)one: ");
-				char edit_choice;
-				scanf(" %c", &edit_choice);
-				getchar();
-				char buffer[MAX_LINE];
-				
-				if (edit_choice == 'N' || edit_choice == 'n') {
-					fgets(entries[i].name, MAX_LINE, stdin);
-				} else if (edit_choice == 'C' || edit_choice == 'c') {
-					fgets(entries[i].cost, MAX_LINE, stdin);
-				} else if (edit_choice == 'T' || edit_choice == 't') {
-					fgets(entries[i].type, MAX_LINE, stdin);
-				} else if (edit_choice == 'M' || edit_choice == 'm') {
-					fgets(entries[i].mainType, MAX_LINE, stdin);
-				} else if (edit_choice == 'P' || edit_choice == 'p') {
-					fgets(entries[i].power, MAX_LINE, stdin);
-				} else if (edit_choice == 'U' || edit_choice == 'u') {
-					fgets(entries[i].toughness, MAX_LINE, stdin);
-				} else if (edit_choice == 'L' || edit_choice == 'l') {
-					fgets(entries[i].loyalty, MAX_LINE, stdin);
-				} else if (edit_choice == 'X' || edit_choice == 'x') {
-					printf("Enter new Text. Type 'exit' or an empty line twice to finish:\n");
-					entries[i].text[0] = '\0';
-					while (1) {
-						fgets(buffer, MAX_LINE, stdin);
-						if (strcmp(buffer, "exit\n") == 0) break;
-						if (buffer[0] == '\n') {
-							fgets(buffer, MAX_LINE, stdin);
-							if (buffer[0] == '\n') break;
-							strcat(entries[i].text, "\n");
-						}
-						strcat(entries[i].text, buffer);
-					}
-				} else if (edit_choice == 'V' || edit_choice == 'v') {
-					print_entry(entries[i]);
-				} else if (edit_choice == 'D' || edit_choice == 'd') {
-					break;
+		switch(choice) {
+			case 'A':
+			case 'a':
+				++i;
+				break;
+			case 'R':
+			case 'r':
+				printf("Entry rejected.\n");
+				for (int j = i; j < entry_count - 1; j++) {
+					entries[j] = entries[j + 1];
 				}
-			}
+				entry_count--;
+				break;
+			case 'E':
+			case 'e':
+				while (1) {
+					printf("\nEdit (N)ame, (C)ost, (T)ype, (M)ain Type, (P)ower, To(U)ghness, (L)oyalty, Te(X)t, (V)iew, (D)one: ");
+					char edit_choice;
+					scanf(" %c", &edit_choice);
+					getchar();
+					char buffer[MAX_LINE];
+					
+					if (edit_choice == 'N' || edit_choice == 'n') {
+						fgets(entries[i].name, MAX_LINE, stdin);
+					} else if (edit_choice == 'C' || edit_choice == 'c') {
+						fgets(entries[i].cost, MAX_LINE, stdin);
+					} else if (edit_choice == 'T' || edit_choice == 't') {
+						fgets(entries[i].type, MAX_LINE, stdin);
+					} else if (edit_choice == 'M' || edit_choice == 'm') {
+						fgets(entries[i].mainType, MAX_LINE, stdin);
+					} else if (edit_choice == 'P' || edit_choice == 'p') {
+						fgets(entries[i].power, MAX_LINE, stdin);
+					} else if (edit_choice == 'U' || edit_choice == 'u') {
+						fgets(entries[i].toughness, MAX_LINE, stdin);
+					} else if (edit_choice == 'L' || edit_choice == 'l') {
+						fgets(entries[i].loyalty, MAX_LINE, stdin);
+					} else if (edit_choice == 'X' || edit_choice == 'x') {
+						printf("Enter new Text. Type 'exit' or an empty line twice to finish:\n");
+						entries[i].text[0] = '\0';
+						while (1) {
+							fgets(buffer, MAX_LINE, stdin);
+							if (strcmp(buffer, "exit\n") == 0) break;
+							if (buffer[0] == '\n') {
+								fgets(buffer, MAX_LINE, stdin);
+								if (buffer[0] == '\n') break;
+								strcat(entries[i].text, "\n");
+							}
+							strcat(entries[i].text, buffer);
+						}
+					} else if (edit_choice == 'V' || edit_choice == 'v') {
+						print_entry(entries[i]);
+					} else if (edit_choice == 'D' || edit_choice == 'd') {
+						++i;
+						break;
+					}
+				}
+				break;
+			case 'S':
+			case 's':
+			case '/':
+				char search[MAX_LINE];
+				printf("Enter substring search query: ");
+				scanf(" %[^\n]s", search);
+
+				int found = search_entries(search, (i + 1) % entry_count);
+
+				if (found != -1) {
+					i = found - 1;
+				} else {
+					printf("No matching entries found.\n");
+				}
+				break;
 		}
 	}
 }
