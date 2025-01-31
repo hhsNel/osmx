@@ -43,7 +43,8 @@ int main() {
 	scanf(" %[^\n]s", set_name);
 	printf("Enter long name: ");
 	scanf(" %[^\n]s", longname);
-	printf("Enter release date (or press Enter for today’s date): ");
+	printf("Enter release date (or press Enter for today's date): ");
+	while (getchar() != '\n'); // Clear input buffer
 	fgets(release_date, MAX_LINE, stdin);
 	if (release_date[0] == '\n') {
 		time_t t = time(NULL);
@@ -67,7 +68,7 @@ void parse_osmx(const char *filename) {
 	int reading_text = 0;
 
 	while (fgets(line, MAX_LINE, file)) {
-		if (line[0] != '\t') {
+		if (line[0] != '\t' && line[0] != '\n') {
 			// New entry
 			current = &entries[entry_count++];
 			strcpy(current->name, line);
@@ -77,7 +78,10 @@ void parse_osmx(const char *filename) {
 			current->loyalty[0] = '\0';
 			reading_text = 0;
 		} else {
-			if (sscanf(line, "\t%[^:]: %[^\n]", key, value) == 2) { 
+			if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
+				// If it's part of text, append with a newline for readability
+				strcat(current->text, line + 1);  // Skip the tab character
+			} else if (sscanf(line, "\t%[^:]: %[^\n]", key, value) == 2) { 
 				if (strcmp(key, "Cost") == 0) {
 					strcpy(current->cost, value);
 					reading_text = 0;
@@ -99,9 +103,6 @@ void parse_osmx(const char *filename) {
 				}
 			} else if (strcmp(line, "\tText:\n") == 0) {
 				reading_text = 1;  // Start capturing multi-line text
-			} else if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
-				// If it's part of text, append with a newline for readability
-				strcat(current->text, line + 1);  // Skip the tab character
 			}
 		}
 	}
