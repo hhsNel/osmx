@@ -3,7 +3,7 @@ Invocation of Ruin
 	Type: Sorcery
 	MainType: Sorcery
 	Text:
-	Reveal cards from the top of your library until you reveal a noncreature spell with mana value 4-6.
+	Reveal cards from the top of your library until you reveal a noncreature spell with mana value 46.
 	You may cast it without paying its mana cost. Then, shuffle.
 	Metadata:
 		Rarity: Rare
@@ -18,12 +18,12 @@ Celestial Infusion
 	Metadata:
 		Rarity: Rare
 
-Singularity’s Wake
+Singularity's Wake
 	Cost: 0
 	Type: Legendary Artifact
 	MainType: Artifact
 	Text:
-	If Singularity’s Wake is in your graveyard or exile, then if a card you own would be put into your graveyard or exiled, 
+	If Singularity's Wake is in your graveyard or exile, then if a card you own would be put into your graveyard or exiled, 
 	put it on the bottom of your library instead.
 	Metadata:
 		Rarity: Mythic
@@ -32,11 +32,12 @@ Planar Fracture
 	Cost: 3G
 	Type: Sorcery
 	MainType: Sorcery
+	Text
 	Text:
 	Cascade.
 	Return up to one target nonland permanent to its owner's hand.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
 Temporal Outburst
 	Cost: 3U
@@ -46,7 +47,7 @@ Temporal Outburst
 	Cascade.
 	Each opponent sacrifices a creature or artifact.
 	Metadata:
-		Rarity: Uncommon
+			Rarity: Uncommon
 
 Cataclysmic Collapse
 	Cost: 4B
@@ -56,7 +57,7 @@ Cataclysmic Collapse
 	Cascade.
 	Destroy all nonbasic lands.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
 Ethereal Tumult
 	Cost: 5W
@@ -66,7 +67,7 @@ Ethereal Tumult
 	Cascade.
 	Shuffle all creatures into their owners' libraries.
 	Metadata:
-		Rarity: Mythic
+			Rarity: Mythic
 
 Chrono Rupture
 	Cost: 5U
@@ -76,27 +77,27 @@ Chrono Rupture
 	Cascade.
 	Exile all graveyards.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
-Boseiju’s Echo
+Boseiju<92>s Echo
 	Cost: 0
 	Type: Land
 	MainType: Land
 	Text:
 	T: Add G.
-	{1}, T, Sacrifice Boseiju’s Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
+	{1}, T, Sacrifice Boseiju<92>s Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
-Otawara’s Reflection
+Otawara<92>s Reflection
 	Cost: 0
 	Type: Land
 	MainType: Land
 	Text:
 	T: Add U.
-	{1}, T, Sacrifice Otawara’s Reflection: Return target nonland permanent to its owner’s hand. That permanent’s controller may search their library for a land card and put it onto the battlefield tapped.
+	{1}, T, Sacrifice Otawara<92>s Reflection: Return target nonland permanent to its owner<92>s hand. That permanent<92>s controller may search their library for a land card and put it onto the battlefield tapped.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
 Forbidden Hollow
 	Cost: 0
@@ -105,9 +106,9 @@ Forbidden Hollow
 	Text:
 	T: Add C.
 	ETB tapped.
-	{1}, T: The next spell you cast this turn can’t be countered.
+	{1}, T: The next spell you cast this turn can<92>t be countered.
 	Metadata:
-		Rarity: Rare
+			Rarity: Rare
 
 Sunken Cavern
 	Cost: 0
@@ -117,4 +118,4 @@ Sunken Cavern
 	T: Add C.
 	T: Add U or B. Sunken Cavern deals 1 damage to you if you use colored mana.
 	Metadata:
-		Rarity: Uncommon
+			Rarity: Uncommon

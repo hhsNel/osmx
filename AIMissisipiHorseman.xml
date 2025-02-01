@@ -22,6 +22,7 @@
 	  <colors>R</colors>
 	  <coloridentity>R</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Celestial Infusion
@@ -37,11 +38,12 @@ Gain 3 life.
 	  <colors>W</colors>
 	  <coloridentity>W</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
-	<name>Singularity�s Wake
+	<name>Singularity's Wake
 </name>
-	<text>As long as Singularitys Wake is in your graveyard or exile, if a card you own would be put into your graveyard or exiled, put it on the bottom of your library instead.
+	<text>As long as Singularity's Wake is in your graveyard or exile, if a card you own would be put into your graveyard or exiled, put it on the bottom of your library instead.
 </text>
 	<prop>
 	  <type>Legendary Artifact</type>
@@ -51,6 +53,7 @@ Gain 3 life.
 	  <colors>C</colors>
 	  <coloridentity>C</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Planar Fracture
@@ -66,6 +69,7 @@ Return up to one target nonland permanent to its owner's hand.
 	  <colors>G</colors>
 	  <coloridentity>G</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Temporal Outburst
@@ -81,6 +85,7 @@ Each opponent sacrifices a creature or artifact.
 	  <colors>U</colors>
 	  <coloridentity>U</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Cataclysmic Collapse
@@ -96,6 +101,7 @@ Destroy all nonbasic lands.
 	  <colors>B</colors>
 	  <coloridentity>B</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Ethereal Tumult
@@ -111,6 +117,7 @@ Shuffle all creatures into their owners' libraries.
 	  <colors>W</colors>
 	  <coloridentity>W</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Chrono Rupture
@@ -126,12 +133,13 @@ Exile all graveyards.
 	  <colors>U</colors>
 	  <coloridentity>U</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
-	<name>Boseiju�s Echo
+	<name>Boseiju's Echo
 </name>
 	<text>T: Add G.
-	{1}, T, Sacrifice Boseiju’s Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
+	{1}, T, Sacrifice Boseiju's Echo: Destroy target artifact or enchantment. Its controller may search their library for a basic land and put it onto the battlefield tapped.
 </text>
 	<prop>
 	  <type>Land</type>
@@ -141,12 +149,13 @@ Exile all graveyards.
 	  <colors>C</colors>
 	  <coloridentity>C</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
-	<name>Otawara�s Reflection
+	<name>Otawara's Reflection
 </name>
 	<text>	T: Add U.
-	{1}, T, Sacrifice Otawara’s Reflection: Return target nonland permanent to its owner’s hand. That permanent’s controller may search their library for a land card and put it onto the battlefield tapped.
+	{1}, T, Sacrifice Otawara's Reflection: Return target nonland permanent to its owner’s hand. That permanent’s controller may search their library for a land card and put it onto the battlefield tapped.
 </text>
 	<prop>
 	  <type>Land</type>
@@ -156,13 +165,14 @@ Exile all graveyards.
 	  <colors>C</colors>
 	  <coloridentity>C</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Forbidden Hollow
 </name>
 	<text>	T: Add C.
 	ETB tapped.
-	{1}, T: The next spell you cast this turn can’t be countered.
+	{1}, T: The next spell you cast this turn can't be countered.
 </text>
 	<prop>
 	  <type>Land</type>
@@ -172,6 +182,7 @@ Exile all graveyards.
 	  <colors>C</colors>
 	  <coloridentity>C</coloridentity>
 	</prop>
+<set>AMH</set>
   </card>
   <card>
 	<name>Sunken Cavern
@@ -187,6 +198,23 @@ Exile all graveyards.
 	  <colors>C</colors>
 	  <coloridentity>C</coloridentity>
 	</prop>
+<set>AMH</set>
+  </card>
+  <card>
+	<name>Chaotic Resurgence
+</name>
+	<text>	Cascade, cascade.
+	Each player shuffles a permanent they control into their library.
+</text>
+	<prop>
+	  <type>Sorcery</type>
+	  <maintype>Sorcery</maintype>
+	  <manacost>5R</manacost>
+	  <cmc>6</cmc>
+	  <colors>R</colors>
+	  <coloridentity>R</coloridentity>
+	</prop>
+<set>AMH</set>
   </card>
   </cards>
 </cockatrice_carddatabase>

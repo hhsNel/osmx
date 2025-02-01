@@ -264,6 +264,7 @@ void write_xml(const char *filename, const char *set_name, const char *longname,
 			fprintf(file, "	  <loyalty>%s</loyalty>\n", entries[i].loyalty);
 		}
 		fprintf(file, "	</prop>\n");
+		fprintf(file, "    <set>%s</set>\n", set_name);
 		fprintf(file, "  </card>\n");
 	}
 	
