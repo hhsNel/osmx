@@ -88,7 +88,23 @@ CharRender font[96] = {
 };
 
 void draw_line(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g, uint8_t b) {
-	
+	int dx = abs(x2 - x1), dy = abs(y2 - y1);
+	int sx = (x1 < x2) ? 1 : -1;
+	int sy = (y1 < y2) ? 1 : -1;
+	int err = dx - dy;
+
+	while (x1 != x2 || y1 != y2) {
+
+		if (x1 >= 0 && x1 < WIDTH && y1 >= 0 && y1 < HEIGHT) {
+			img->pixels[y1][x1][0] = r;
+			img->pixels[y1][x1][1] = g;
+			img->pixels[y1][x1][2] = b;
+		}
+
+		int e2 = 2 * err;
+		if (e2 > -dy) { err -= dy; x1 += sx; }
+		if (e2 < dx) { err += dx; y1 += sy; }
+	}
 }
 
 void draw_char(Image *img, int x1, int y1, int width, int height, uint8_t r, uint8_t g, uint8_t b) {
