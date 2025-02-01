@@ -17,26 +17,26 @@ typedef struct {
 
 // Initialize the image with a background color
 void init_image(Image *img, uint8_t r, uint8_t g, uint8_t b) {
-    for (int y = 0; y < HEIGHT; y++) {
-        for (int x = 0; x < WIDTH; x++) {
-            img->pixels[y][x][0] = r;
-            img->pixels[y][x][1] = g;
-            img->pixels[y][x][2] = b;
-        }
-    }
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
+			img->pixels[y][x][0] = r;
+			img->pixels[y][x][1] = g;
+			img->pixels[y][x][2] = b;
+		}
+	}
 }
 
 // Draw a simple rectangle (border, text box, etc.)
 void draw_rect(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g, uint8_t b) {
-    for (int y = y1; y <= y2; y++) {
-        for (int x = x1; x <= x2; x++) {
-            if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-                img->pixels[y][x][0] = r;
-                img->pixels[y][x][1] = g;
-                img->pixels[y][x][2] = b;
-            }
-        }
-    }
+	for (int y = y1; y <= y2; y++) {
+		for (int x = x1; x <= x2; x++) {
+			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+				img->pixels[y][x][0] = r;
+				img->pixels[y][x][1] = g;
+				img->pixels[y][x][2] = b;
+			}
+		}
+	}
 }
 
 // Write the image in Farbfeld format
@@ -77,7 +77,7 @@ typedef struct {
 CharRender font[96] = {
 	/* each character is 2 lines. The first line contains the starting positions,
 	   the second contains ending positions. Each position contains 2 floating point
-	   numbers, the X and Y. There are 5 positions in each line */
+	   numbers, the X and Y coords. There are 5 positions in each line */
 	/* 1st start/end	2nd start/end	3rd start/end	4th start/end	5th start/end */
 	{ {0, 0,			0, 0,			0, 0,			0, 0,			0, 0}, 
 	  {0, 0,			0, 0,			0, 0,			0, 0,			0, 0} },	// space
@@ -88,7 +88,29 @@ CharRender font[96] = {
 	{ {0.3, 0.1,		0.65, 0.1,		0.1, 0.3,		0.1, 0.7,		0, 0}, 
 	  {0.35, 0.9,		0.7, 0.9,		0.9, 0.3,		0.9, 0.7,		0, 0} },	// #
 	{ {0.1, 0.9,		0.1, 0.9,		0.1, 0.1,		0.5, 0.95,		0, 0}, 
-	  {0.9, 0.9,		0.9, 0.1,		0.9, 0.9,		0.5, 0.05,		0, 0} },	// $
+	  {0.9, 0.9,		0.9, 0.1,		0.9, 0.1,		0.5, 0.05,		0, 0} },	// $
+	{ {0.1, 0.8,		0.8, 0.1,		0.1, 0.1,		0, 0,			0, 0}, 
+	  {0.2, 0.7,		0.7, 0.2,		0.9, 0.9,		0, 0,			0, 0} },	// %
+	{ {0.9, 0.1,		0.1, 0.9,		0.9, 0.9,		0.1, 0.3,		0.3, 0.1}, 
+	  {0.1, 0.9,		0.9, 0.9,		0.1, 0.3,		0.3, 0.1,		0.9, 0.3} },// &
+	{ {0.5, 0.6,		0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0.5, 0.4,		0, 0,			0, 0,			0, 0,			0, 0} },	// '
+	{ {0.2, 0.9,		0.1, 0.6,		0.1, 0.4,		0, 0,			0, 0}, 
+	  {0.1, 0.6,		0.1, 0.4,		0.2, 0.1,		0, 0,			0, 0} },	// (
+	{ {0.8, 0.9,		0.9, 0.6,		0.9, 0.4,		0, 0,			0, 0}, 
+	  {0.9, 0.6,		0.9, 0.4,		0.8, 0.1,		0, 0,			0, 0} },	// )
+	{ {0.5, 0.9,		0.4, 0.85,		0.4, 0.75,		0, 0,			0, 0}, 
+	  {0.5, 0.7,		0.6, 0.75,		0.6, 0.85,		0, 0,			0, 0} },	// *
+	{ {0.5, 0.3,		0.3, 0.5,		0, 0,			0, 0,			0, 0}, 
+	  {0.5, 0.7,		0.7, 0.5,		0, 0,			0, 0,			0, 0} },	// +
+	{ {0.2, 0.2,		0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0.15, 0.1,		0, 0,			0, 0,			0, 0,			0, 0} },	// ,
+	{ {0.3, 0.5,		0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0.7, 0.5,		0, 0,			0, 0,			0, 0,			0, 0} },	// -
+	{ {0.5, 0.2,		0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0.5, 0.1,		0, 0,			0, 0,			0, 0,			0, 0} },	// .
+	{ {0.4, 0.1,		0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0.6, 0.9,		0, 0,			0, 0,			0, 0,			0, 0} },	// /
 };
 
 void draw_line(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g, uint8_t b) {
@@ -115,10 +137,23 @@ void draw_char(Image *img, char c, int x1, int y1, int width, int height, uint8_
 	if(c < 32 || c > 127) return;
 	int index = c - 32;
 	for(int i = 0; i < MAX_STROKES; ++i) {
-		int stroke_sx = x1 + width*(font[index].startPos[2*i]), stroke_sy = y1 + height*(font[index].startPos[2*i+1]);
-		int stroke_ex = x1 + width*(font[index].endPos[2*i]), stroke_ey = y1 + height*(font[index].endPos[2*i+1]);
+		int stroke_sx = x1 + width*font[index].startPos[2*i], stroke_sy = y1 + height*(1-font[index].startPos[2*i+1]);
+		int stroke_ex = x1 + width*font[index].endPos[2*i], stroke_ey = y1 + height*(1-font[index].endPos[2*i+1]);
 		draw_line(img, stroke_sx, stroke_sy, stroke_ex, stroke_ey, r, g, b);
 	}
+}
+
+// Draw a string using draw_char
+void draw_string(Image *img, const char *str, int x, int y, int width, int height, int spacing, uint8_t r, uint8_t g, uint8_t b) {
+    int length = strlen(str);
+    if (length == 0) return;
+    int char_width = (width - (length - 1) * spacing) / length;
+    int cursor_x = x;
+    
+    for (const char *c = str; *c; c++) {
+        draw_char(img, *c, cursor_x, y, char_width, height, r, g, b);
+        cursor_x += char_width + spacing;
+    }
 }
 
 #endif // CARD_RENDERER_H
