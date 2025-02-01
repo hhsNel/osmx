@@ -74,6 +74,9 @@ typedef struct {
 } CharRender;
 
 CharRender font[96] = {
+	/* each character is 2 lines. The first line contains the starting positions,
+	   the second contains ending positions. Each position contains 2 floating point
+	   numbers, the X and Y. There are 5 positions in each line */
 	/* 1st start/end	2nd start/end	3rd start/end	4th start/end	5th start/end */
 	{ {0, 0,			0, 0,			0, 0,			0, 0,			0, 0}, 
 	  {0, 0,			0, 0,			0, 0,			0, 0,			0, 0} },	// space
@@ -107,8 +110,14 @@ void draw_line(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g,
 	}
 }
 
-void draw_char(Image *img, int x1, int y1, int width, int height, uint8_t r, uint8_t g, uint8_t b) {
-	
+void draw_char(Image *img, char c, int x1, int y1, int width, int height, uint8_t r, uint8_t g, uint8_t b) {
+	if(c < 32 || c > 127) return;
+	int index = c - 32;
+	for(int i = 0; i < MAX_STROKES; ++i) {
+		int stroke_sx = x1 + width*(font[index].startPos[2*i]), stroke_sy = y1 + height*(font[index].startPos[2*i+1]);
+		int stroke_ex = x1 + width*(font[index].endPos[2*i]), stroke_ey = y1 + height*(font[index].endPos[2*i+1]);
+		draw_line(img, stroke_sx, stroke_sy, stroke_ex, stroke_ey, r, g, b);
+	}
 }
 
 #endif // CARD_RENDERER_H
