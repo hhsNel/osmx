@@ -67,6 +67,32 @@ void save_farbfeld(const char *filename, Image *img) {
     fclose(f);
 }
 
+#define MAX_STROKES 5
+typedef struct {
+	float startPos[2*MAX_STROKES];
+	float endPos[2*MAX_STROKES];
+} CharRender;
 
+CharRender font[96] = {
+	/* 1st start/end	2nd start/end	3rd start/end	4th start/end	5th start/end */
+	{ {0, 0,			0, 0,			0, 0,			0, 0,			0, 0}, 
+	  {0, 0,			0, 0,			0, 0,			0, 0,			0, 0} },	// space
+	{ {0.5, 0.9,		0.5, 0.2,		0, 0,			0, 0,			0, 0}, 
+	  {0.5, 0.3,		0.5, 0.1,		0, 0,			0, 0,			0, 0} },	// !
+	{ {0.4, 0.6,		0.6, 0.6,		0, 0,			0, 0,			0, 0}, 
+	  {0.4, 0.4,		0.6, 0.4,		0, 0,			0, 0,			0, 0} },	// "
+	{ {0.3, 0.1,		0.65, 0.1,		0.1, 0.3,		0.1, 0.7,		0, 0}, 
+	  {0.35, 0.9,		0.7, 0.9,		0.9, 0.3,		0.9, 0.7,		0, 0} },	// #
+	{ {0.1, 0.9,		0.1, 0.9,		0.1, 0.1,		0.5, 0.95,		0, 0}, 
+	  {0.9, 0.9,		0.9, 0.1,		0.9, 0.9,		0.5, 0.05,		0, 0} },	// $
+};
+
+void draw_line(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g, uint8_t b) {
+	
+}
+
+void draw_char(Image *img, int x1, int y1, int width, int height, uint8_t r, uint8_t g, uint8_t b) {
+	
+}
 
 #endif // CARD_RENDERER_H

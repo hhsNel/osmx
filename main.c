@@ -7,6 +7,8 @@
 #define MAX_LINE 1024
 #define MAX_ENTRIES 100
 
+#include "render.h"
+
 typedef struct {
 	char name[MAX_LINE];
 	char cost[MAX_LINE];
