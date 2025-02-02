@@ -111,6 +111,105 @@ CharRender font[96] = {
 	  {0.5, 0.1,		0, 0,			0, 0,			0, 0,			0, 0} },	// .
 	{ {0.4, 0.1,		0, 0,			0, 0,			0, 0,			0, 0}, 
 	  {0.6, 0.9,		0, 0,			0, 0,			0, 0,			0, 0} },	// /
+	{ {0.2, 0.1,		0.8, 0.1,		0.8, 0.9,		0.2, 0.9,		0.2, 0.2},
+	  {0.8, 0.1,		0.8, 0.9,		0.2, 0.9,		0.2, 0.1,		0.8, 0.8} },// 0
+	{ {0.5, 0.9,		0.4, 0.1,		0.5, 0.9,		0, 0,			0, 0},
+	  {0.5, 0.1,		0.6, 0.1,		0.3, 0.7,		0, 0,			0, 0} },	// 1
+	{ {0.1, 0.1,		0.1, 0.1,		0.9, 0.8,		0.8, 0.9,		0.2, 0.9},
+	  {0.9, 0.1,		0.9, 0.8,		0.8, 0.9,		0.2, 0.9,		0.1, 0.8} },// 2
+	{ {0.1, 0.1,		0.9, 0.1,		0.9, 0.9,		0.9, 0.5,		0, 0},
+	  {0.9, 0.1,		0.9, 0.9,		0.1, 0.9,		0.2, 0.5,		0, 0} },	// 3
+	{ {0.7, 0.1,		0.7, 0.9,		0.1, 0.4,		0, 0,			0, 0},
+	  {0.7, 0.9,		0.1, 0.4,		0.8, 0.4,		0, 0,			0, 0} },	// 4
+	{ {0.9, 0.9,		0.1, 0.9,		0.1, 0.5,		0.8, 0.5,		0.9, 0.1},
+	  {0.1, 0.9,		0.1, 0.5,		0.8, 0.5,		0.9, 0.1,		0.1, 0.1} },// 5
+	{ {0.1, 0.1,		0.1, 0.1,		0.9, 0.1,		0.9, 0.5,		0.2, 0.9},
+	  {0.2, 0.9,		0.9, 0.1,		0.9, 0.5,		0.15, 0.5,		0.9, 0.9} },// 6
+	{ {0.1, 0.9,		0.9, 0.9,		0.7, 0.5,		0, 0,			0, 0},
+	  {0.9, 0.9,		0.5, 0.1,		0.5, 0.5,		0, 0,			0, 0} },	// 7
+	{ {0.1, 0.9,		0.9, 0.9,		0.9, 0.1,		0.1, 0.1,		0.1, 0.5},
+	  {0.9, 0.9,		0.9, 0.1,		0.1, 0.1,		0.1, 0.9,		0.9, 0.5} },// 8
+	{ {0.1, 0.9,		0.9, 0.9,		0.1, 0.9,		0.1, 0.5,		0.8, 0.1},
+	  {0.9, 0.9,		0.8, 0.1,		0.1, 0.5,		0.85, 0.5,		0.1, 0.1} },// 9
+	{ {0.5, 0.55,		0.5, 0.45,		0, 0,			0, 0,			0, 0},
+	  {0.5, 0.65,		0.5, 0.35,		0, 0,			0, 0,			0, 0} },	// :
+	{ {0.5, 0.55,		0.5, 0.45,		0, 0,			0, 0,			0, 0},
+	  {0.5, 0.65,		0.4, 0.25,		0, 0,			0, 0,			0, 0} },	// ;
+	{ {0.1, 0.5,		0.1, 0.5,		0, 0,			0, 0,			0, 0},
+	  {0.9, 0.8,		0.9, 0.2,		0, 0,			0, 0,			0, 0} },	// <
+	{ {0.1, 0.6,		0.9, 0.4,		0, 0,			0, 0,			0, 0},
+	  {0.9, 0.6,		0.1, 0.4,		0, 0,			0, 0,			0, 0} },	// =
+	{ {0.9, 0.5,		0.9, 0.5,		0, 0,			0, 0,			0, 0},
+	  {0.1, 0.8,		0.1, 0.2,		0, 0,			0, 0,			0, 0} },	// >
+	{ {0.5, 0.1,		0.5, 0.3,		0.5, 0.4,		0.9, 0.9,		0.2, 0.9},
+	  {0.5, 0.2,		0.5, 0.4,		0.9, 0.9,		0.2, 0.9,		0.1, 0.8} },// ?
+	{ {0.5, 0.1,		0.1, 0.5,		0.5, 0.9,		0.7, 0.3,		0.55, 0.35},
+	  {0.1, 0.5,		0.5, 0.9,		0.7, 0.3,		0.4, 0.4,		0.45, 0.6} },// @
+	{ {0.1, 0.1,		0.5, 0.9,		0.3, 0.5,		0, 0,			0, 0},
+	  {0.5, 0.9,		0.9, 0.1,		0.7, 0.5,		0, 0,			0, 0} },	// A
+	{ {0.1, 0.1,		0.1, 0.1,		0.9, 0.3,		0.9, 0.7,		0.9, 0.5},
+	  {0.1, 0.9,		0.9, 0.3,		0.9, 0.7,		0.1, 0.9,		0.1, 0.5} },// B
+	{ {0.9, 0.1,		0.2, 0.1,		0.1, 0.2,		0.1, 0.8,		0.2, 0.9},
+	  {0.2, 0.1,		0.1, 0.2,		0.1, 0.8,		0.2, 0.9,		0.9, 0.9} },// C
+	{ {0.1, 0.9,		0.1, 0.1,		0.7, 0.1,		0.9, 0.3,		0.9, 0.7},
+	  {0.1, 0.1,		0.7, 0.1,		0.9, 0.3,		0.9, 0.7,		0.1, 0.9} },// D
+	{ {0.9, 0.9,		0.1, 0.9,		0.1, 0.1,		0.1, 0.5,		0, 0},
+	  {0.1, 0.9,		0.1, 0.1,		0.9, 0.1,		0.8, 0.5,		0, 0} },	// E
+	{ {0.1, 0.1,		0.1, 0.9,		0.1, 0.5,		0, 0,			0, 0},
+	  {0.1, 0.9,		0.9, 0.9,		0.5, 0.5,		0, 0,			0, 0} },	// F
+	{ {0.9, 0.9,		0.1, 0.9,		0.1, 0.1,		0.9, 0.1,		0.9, 0.5},
+	  {0.1, 0.9,		0.1, 0.1,		0.9, 0.1,		0.9, 0.5,		0.5, 0.5} },// G
+	{ {0.1, 0.9,		0.9, 0.9,		0.1, 0.5,		0, 0,			0, 0},
+	  {0.1, 0.1,		0.9, 0.1,		0.9, 0.5,		0, 0,			0, 0} },	// H
+	{ {0.5, 0.9,		0.4, 0.1,		0.4, 0.9,		0, 0,			0, 0},
+	  {0.5, 0.1,		0.6, 0.1,		0.6, 0.9,		0, 0,			0, 0} },	// I
+	{ {0.1, 0.9,		0.9, 0.9,		0.9, 0.45,		0.7, 0.1,		0.3, 0.1},
+	  {0.9, 0.9,		0.9, 0.45,		0.7, 0.1,		0.3, 0.1,		0.1, 0.3} },// J
+	{ {0.1, 0.9,		0.1, 0.5,		0.1, 0.5,		0, 0,			0, 0},
+	  {0.1, 0.1,		0.9, 0.9,		0.9, 0.1,		0, 0,			0, 0} },	// K
+	{ {0.1, 0.9,		0.1, 0.1,		0, 0,			0, 0,			0, 0},
+	  {0.1, 0.1,		0.9, 0.1,		0, 0,			0, 0,			0, 0} },	// L
+	{ {0.1, 0.1,		0.1, 0.9,		0.5, 0.5,		0.9, 0.9,		0, 0},
+	  {0.1, 0.9,		0.5, 0.5,		0.9, 0.9,		0.9, 0.1,		0, 0} },	// M
+	{ {0.1, 0.1,		0.1, 0.9,		0.9, 0.1,		0, 0,			0, 0},
+	  {0.1, 0.9,		0.9, 0.1,		0.9, 0.9,		0, 0,			0, 0} },	// N
+	{ {0.1, 0.1,		0.9, 0.1,		0.9, 0.9,		0.1, 0.9,		0, 0},
+	  {0.9, 0.1,		0.9, 0.9,		0.1, 0.9,		0.1, 0.1,		0, 0} },	// O
+	{ {0.1, 0.1,		0.1, 0.9,		0.9, 0.9,		0.9, 0.5,		0, 0},
+	  {0.1, 0.9,		0.9, 0.9,		0.9, 0.5,		0.1, 0.5,		0, 0} },	// P
+	{ {0.1, 0.9,		0.1, 0.1,		0.9, 0.2,		0.9, 0.9,		0.9, 0.1},
+	  {0.1, 0.1,		0.9, 0.2,		0.9, 0.9,		0.1, 0.9,		0.7, 0.3} },// Q
+	{ {0.1, 0.1,		0.1, 0.9,		0.9, 0.9,		0.9, 0.5,		0.1, 0.5},
+	  {0.1, 0.9,		0.9, 0.9,		0.9, 0.5,		0.1, 0.5,		0.9, 0.1} },// R
+	{ {0.9, 0.9,		0.1, 0.8,		0.2, 0.5,		0.8, 0.5,		0.9, 0.2},
+	  {0.1, 0.8,		0.2, 0.5,		0.8, 0.5,		0.9, 0.2,		0.1, 0.1} },// S
+	{ {0.1, 0.9,		0.5, 0.9,		0, 0,			0, 0,			0, 0},
+	  {0.9, 0.9,		0.5, 0.1,		0, 0,			0, 0,			0, 0} },	// T
+	{ {0.1, 0.9,		0.1, 0.1,		0.9, 0.1,		0, 0,			0, 0},
+	  {0.1, 0.1,		0.9, 0.1,		0.9, 0.9,		0, 0,			0, 0} },	// U
+	{ {0.1, 0.9,		0.5, 0.1,		0, 0,			0, 0,			0, 0},
+	  {0.5, 0.1,		0.9, 0.9,		0, 0,			0, 0,			0, 0} },	// V
+	{ {0.1, 0.9,		0.2, 0.1,		0.5, 0.5,		0.8, 0.1,		0, 0},
+	  {0.2, 0.1,		0.5, 0.5,		0.8, 0.1,		0.9, 0.9,		0, 0} },	// W
+	{ {0.1, 0.9,		0.1, 0.1,		0, 0,			0, 0,			0, 0},
+	  {0.9, 0.1,		0.9, 0.9,		0, 0,			0, 0,			0, 0} },	// X
+	{ {0.1, 0.9,		0.5, 0.5,		0.5, 0.5,		0, 0,			0, 0},
+	  {0.5, 0.5,		0.9, 0.9,		0.5, 0.1,		0, 0,			0, 0} },	// Y
+	{ {0.1, 0.9,		0.9, 0.9,		0.1, 0.1,		0, 0,			0, 0},
+	  {0.9, 0.9,		0.1, 0.1,		0.9, 0.1,		0, 0,			0, 0} },	// Z
+	{ {0.3, 0.9,		0.1, 0.9,		0.1, 0.1,		0, 0,			0, 0},
+	  {0.1, 0.9,		0.1, 0.1,		0.3, 0.1,		0, 0,			0, 0} },	// [
+	{ {0.1, 0.9,		0, 0,			0, 0,			0, 0,			0, 0},
+	  {0.9, 0.1,		0, 0,			0, 0,			0, 0,			0, 0} },	// backslash
+	{ {0.7, 0.9,		0.9, 0.9,		0.9, 0.1,		0, 0,			0, 0},
+	  {0.9, 0.9,		0.9, 0.1,		0.7, 0.1,		0, 0,			0, 0} },	// ]
+	{ {0.5, 0.9,		0.5, 0.9,		0, 0,			0, 0,			0, 0},
+	  {0.3, 0.7,		0.7, 0.7,		0, 0,			0, 0,			0, 0} },	// ^
+	{ {0.1, 0.1,		0, 0,			0, 0,			0, 0,			0, 0},
+	  {0.9, 0.1,		0, 0,			0, 0,			0, 0,			0, 0} },	// _
+	{ {0.5, 0.9,		0, 0,			0, 0,			0, 0,			0, 0},
+	  {0.6, 0.8,		0, 0,			0, 0,			0, 0,			0, 0} },	// `
+	  
 };
 
 void draw_line(Image *img, int x1, int y1, int x2, int y2, uint8_t r, uint8_t g, uint8_t b) {
@@ -145,15 +244,92 @@ void draw_char(Image *img, char c, int x1, int y1, int width, int height, uint8_
 
 // Draw a string using draw_char
 void draw_string(Image *img, const char *str, int x, int y, int width, int height, int spacing, uint8_t r, uint8_t g, uint8_t b) {
-    int length = strlen(str);
-    if (length == 0) return;
-    int char_width = (width - (length - 1) * spacing) / length;
-    int cursor_x = x;
+	int length = strlen(str);
+	if (length == 0) return;
+	int char_width = (width - (length - 1) * spacing) / length;
+	int cursor_x = x;
+	
+	for (const char *c = str; *c; c++) {
+		draw_char(img, *c, cursor_x, y, char_width, height, r, g, b);
+		cursor_x += char_width + spacing;
+	}
+}
+
+// Draw a string with line breaks
+void draw_breaking_string(Image *img, const char *str, int x, int y, int width, int height, int spacing, int line_spacing, uint8_t r, uint8_t g, uint8_t b) {
+	int line_count = 1, max_line = 0, chars_in_line;
+	for (const char *c = str; *c; c++) {
+		if (*c == '\n') {
+			++line_count;
+			if(chars_in_line > max_line) max_line = chars_in_line;
+			chars_in_line = 0;
+		} else {
+			++chars_in_line;
+		}
+	}
+	
+	int line_height = (height - (line_count - 1) * line_spacing) / line_count;
+	int char_width = (width - (max_line - 1) * spacing) / max_line;
+	int cursor_y = y, cursor_x = x;
+	
+	for (const char *c = str; *c; c++) {
+		if (*c == '\n') {
+			cursor_y += line_height + spacing;
+			cursor_x = x;
+			continue;
+		}
+		draw_char(img, *c, cursor_x, cursor_y, char_width, line_height, r, g, b);
+		cursor_x += char_width + spacing;
+	}
+}
+
+void render_card(Image *img, Entry entry) {
+    // Define card dimensions
+    int card_w = WIDTH, card_h = HEIGHT;
+    int border_thickness = 10;
+    int text_area_h = card_h / 3;
+    int art_area_h = card_h / 2;
+
+    // Determine border color
+    uint8_t r = 128, g = 128, b = 128; // Default to gray (colorless)
+    int color_count = 0;
     
-    for (const char *c = str; *c; c++) {
-        draw_char(img, *c, cursor_x, y, char_width, height, r, g, b);
-        cursor_x += char_width + spacing;
-    }
+    if (strchr(entry.cost, 'W')) { r = 255; g = 255; b = 200; color_count++; }
+    if (strchr(entry.cost, 'U')) { r = 100; g = 100; b = 255; color_count++; }
+    if (strchr(entry.cost, 'B')) { r = 80; g = 80; b = 80; color_count++; }
+    if (strchr(entry.cost, 'R')) { r = 255; g = 80; b = 80; color_count++; }
+    if (strchr(entry.cost, 'G')) { r = 80; g = 200; b = 80; color_count++; }
+
+    // If multicolored, use gold border
+    if (color_count > 1) { r = 218; g = 165; b = 32; }
+
+    // Initialize the image with a white background
+    init_image(img, 255, 255, 255);
+
+    // Draw border
+    draw_rect(img, 0, 0, card_w, card_h, r, g, b);
+    draw_rect(img, border_thickness, border_thickness, 
+              card_w - border_thickness, card_h - border_thickness, 255, 255, 255);
+
+    // Draw placeholder for art
+    draw_rect(img, border_thickness * 2, border_thickness * 2,
+              card_w - border_thickness * 2, art_area_h, 0, 0, 0);
+
+    // Draw name
+    draw_string(img, entry.name, border_thickness * 2, border_thickness, 
+                card_w - border_thickness * 4, border_thickness * 2, 3, 0, 0, 0);
+
+    // Draw type line
+    draw_string(img, entry.type, border_thickness * 2, art_area_h + border_thickness * 2, 
+                card_w - border_thickness * 4, border_thickness * 2, 3, 0, 0, 0);
+
+    // Draw text box
+    draw_rect(img, border_thickness * 2, art_area_h + border_thickness * 4,
+              card_w - border_thickness * 2, card_h - border_thickness * 2, 240, 240, 240);
+
+    // Draw card text
+    draw_breaking_string(img, entry.text, border_thickness * 4, art_area_h + border_thickness * 6, 
+                         card_w - border_thickness * 8, text_area_h, 2, 0, 0, 0);
 }
 
 #endif // CARD_RENDERER_H
