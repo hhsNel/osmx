@@ -389,7 +389,7 @@ void render_card(Image *img, Entry entry) {
 
     // Draw card text
     draw_breaking_string(img, entry.text, border_thickness * 4, art_area_h + border_thickness * 6, 
-                         card_w - border_thickness * 8, text_area_h, 2, 0, 0, 0);
+                         card_w - border_thickness * 8, text_area_h, 0, 0, 0, 0, 0);
 }
 
 #endif // CARD_RENDERER_H

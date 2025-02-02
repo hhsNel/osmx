@@ -29,6 +29,7 @@ void prompt_user();
 void write_xml(const char *filename, const char *set_name, const char *longname, const char *release_date);
 int calculate_cmc(const char *cost);
 void get_unique_colors(const char *cost, char *colors);
+void render_cards();
 
 int main(int argc, char **argv) {
 	char input_file[MAX_LINE], output_file[MAX_LINE];
@@ -331,9 +332,9 @@ void render_cards() {
 	for(int i = 0; i < entry_count; ++i) {
 		render_card(&img, entries[i]);
 		char filename[MAX_LINE];
-		strcpy(filename, entry.name);
+		strcpy(filename, entries[i].name);
 		strcat(filename, ".ff");
-		save_farbfeld(filename, img);
+		save_farbfeld(filename, &img);
 	}
 	printf("Cards rendered.\n");
 }
