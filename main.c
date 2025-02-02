@@ -7,8 +7,6 @@
 #define MAX_LINE 1024
 #define MAX_ENTRIES 100
 
-#include "render.h"
-
 typedef struct {
 	char name[MAX_LINE];
 	char cost[MAX_LINE];
@@ -23,6 +21,8 @@ typedef struct {
 Entry entries[MAX_ENTRIES];
 int entry_count = 0;
 
+#include "render.h"
+
 void parse_osmx(const char *filename);
 int search_entries(const char *query, int start_index);
 void prompt_user();
@@ -33,7 +33,13 @@ void get_unique_colors(const char *cost, char *colors);
 int main(int argc, char **argv) {
 	char input_file[MAX_LINE], output_file[MAX_LINE];
 	char set_name[MAX_LINE], longname[MAX_LINE], release_date[MAX_LINE];
-
+	
+	int render_flag = 0;
+	for(int i = 1; i < argc; ++i) {
+		if(strcmp(argv[i], "-r") == 0) {
+			render_flag = 1;
+		}
+	}
 	
 	printf("Enter the .osmx filename: ");
 	scanf("%s", input_file);
@@ -57,6 +63,7 @@ int main(int argc, char **argv) {
 	}
 	
 	write_xml(output_file, set_name, longname, release_date);
+	if(render_flag) render_cards();
 	return 0;
 }
 
@@ -316,4 +323,17 @@ void get_unique_colors(const char *cost, char *colors) {
 	if (ptr == colors) {
 		strcpy(colors, "C"); // Default to colorless if no colors found
 	}
+}
+
+void render_cards() {
+	printf("Rendering cards...\n");
+	Image img;
+	for(int i = 0; i < entry_count; ++i) {
+		render_card(&img, entries[i]);
+		char filename[MAX_LINE];
+		strcpy(filename, entry.name);
+		strcat(filename, ".ff");
+		save_farbfeld(filename, img);
+	}
+	printf("Cards rendered.\n");
 }
