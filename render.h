@@ -344,52 +344,53 @@ void draw_breaking_string(Image *img, const char *str, int x, int y, int width, 
 }
 
 void render_card(Image *img, Entry entry) {
-    // Define card dimensions
-    int card_w = WIDTH, card_h = HEIGHT;
-    int border_thickness = 10;
-    int text_area_h = card_h / 3;
-    int art_area_h = card_h / 2;
+	// Define card dimensions
+	int card_w = WIDTH, card_h = HEIGHT;
+	int outer_thickness = 8;
+	int border_thickness = 8;
+	int line_height = card_h / 16;
+	int art_area_h = card_h / 2;
 
-    // Determine border color
-    uint8_t r = 128, g = 128, b = 128; // Default to gray (colorless)
-    int color_count = 0;
-    
-    if (strchr(entry.cost, 'W')) { r = 255; g = 255; b = 200; color_count++; }
-    if (strchr(entry.cost, 'U')) { r = 100; g = 100; b = 255; color_count++; }
-    if (strchr(entry.cost, 'B')) { r = 80; g = 80; b = 80; color_count++; }
-    if (strchr(entry.cost, 'R')) { r = 255; g = 80; b = 80; color_count++; }
-    if (strchr(entry.cost, 'G')) { r = 80; g = 200; b = 80; color_count++; }
+	// Determine border color
+	uint8_t r = 128, g = 128, b = 128; // Default to gray (colorless)
+	int color_count = 0;
+	
+	if (strchr(entry.cost, 'W')) { r = 255; g = 255; b = 200; color_count++; }
+	if (strchr(entry.cost, 'U')) { r = 100; g = 100; b = 255; color_count++; }
+	if (strchr(entry.cost, 'B')) { r = 80; g = 80; b = 80; color_count++; }
+	if (strchr(entry.cost, 'R')) { r = 255; g = 80; b = 80; color_count++; }
+	if (strchr(entry.cost, 'G')) { r = 80; g = 200; b = 80; color_count++; }
 
-    // If multicolored, use gold border
-    if (color_count > 1) { r = 218; g = 165; b = 32; }
+	// If multicolored, use gold border
+	if (color_count > 1) { r = 218; g = 165; b = 32; }
 
-    // Initialize the image with a white background
-    init_image(img, 255, 255, 255);
+	// Initialize the image with a black background
+	init_image(img, 0, 0, 0);
 
-    // Draw border
-    draw_rect(img, 0, 0, card_w, card_h, r, g, b);
-    draw_rect(img, border_thickness, border_thickness, 
-              card_w - border_thickness, card_h - border_thickness, 255, 255, 255);
+	// Draw border
+	draw_rect(img, outer_thickness, outer_thickness, card_w-outer_thickness, card_h-outer_thickness, r, g, b);
+//	draw_rect(img, border_thickness, border_thickness, 
+//		card_w - border_thickness, card_h - border_thickness, 255, 255, 255);
 
-    // Draw placeholder for art
-    draw_rect(img, border_thickness * 2, border_thickness * 2,
-              card_w - border_thickness * 2, art_area_h, 0, 0, 0);
+	// Draw placeholder for art
+	draw_rect(img, outer_thickness+border_thickness, outer_thickness+border_thickness+line_height,
+			  card_w - outer_thickness - border_thickness, outer_thickness+border_thickness+line_height+art_area_h, 0, 0, 0);
 
-    // Draw name
-    draw_string(img, entry.name, border_thickness * 2, border_thickness, 
-                card_w - border_thickness * 4, border_thickness * 2, 3, 0, 0, 0);
+	// Draw name
+	draw_string(img, entry.name, outer_thickness+border_thickness, outer_thickness+border_thickness, 
+				card_w - 2*outer_thickness - 2*border_thickness, line_height, 0, 0, 0, 0);
 
-    // Draw type line
-    draw_string(img, entry.type, border_thickness * 2, art_area_h + border_thickness * 2, 
-                card_w - border_thickness * 4, border_thickness * 2, 3, 0, 0, 0);
+	// Draw type line
+	draw_string(img, entry.type, outer_thickness+border_thickness, outer_thickness+border_thickness+line_height+art_area_h, 
+				card_w - 2*outer_thickness - 2*border_thickness, line_height, 0, 0, 0, 0);
 
-    // Draw text box
-    draw_rect(img, border_thickness * 2, art_area_h + border_thickness * 4,
-              card_w - border_thickness * 2, card_h - border_thickness * 2, 240, 240, 240);
+	// Draw text box
+	draw_rect(img, outer_thickness+border_thickness, outer_thickness+border_thickness+2*line_height+art_area_h,
+			  card_w - outer_thickness - border_thickness, card_h-outer_thickness, 240, 240, 240);
 
-    // Draw card text
-    draw_breaking_string(img, entry.text, border_thickness * 4, art_area_h + border_thickness * 6, 
-                         card_w - border_thickness * 8, text_area_h, 0, 0, 0, 0, 0);
+	// Draw card text
+	draw_breaking_string(img, entry.text, outer_thickness+border_thickness, outer_thickness+border_thickness+2*line_height+art_area_h, 
+						 card_w - 2*outer_thickness - 2*border_thickness, card_h-2*outer_thickness-border_thickness-2*line_height-art_area_h, 0, 0, 0, 0, 0);
 }
 
 #endif // CARD_RENDERER_H

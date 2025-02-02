@@ -330,11 +330,14 @@ void render_cards() {
 	printf("Rendering cards...\n");
 	Image img;
 	for(int i = 0; i < entry_count; ++i) {
-		render_card(&img, entries[i]);
 		char filename[MAX_LINE];
 		strcpy(filename, entries[i].name);
+		filename[strcspn(filename, "\n")] = '\0';
 		strcat(filename, ".ff");
+		printf(" >> Rendering %s...\n", filename);
+		render_card(&img, entries[i]);
 		save_farbfeld(filename, &img);
+		printf(" >> %s rendered.\n", filename);
 	}
 	printf("Cards rendered.\n");
 }
