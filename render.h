@@ -344,66 +344,71 @@ void draw_breaking_string(Image *img, const char *str, int x, int y, int width, 
 }
 
 void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int width, int height, int spacing, int line_spacing, float char_ratio, uint8_t r, uint8_t g, uint8_t b) {
-    int str_len = strlen(str);
-    if (str_len == 0) return;
+	int str_len = strlen(str);
+	if (str_len == 0) return;
 
-    // Step 0: Find the longest line in the input text
-    int max_line_length = 0, current_line_length = 0;
-    for (const char *c = str; *c; c++) {
-        if (*c == '\n') {
-            if (current_line_length > max_line_length) max_line_length = current_line_length;
-            current_line_length = 0;
-        } else {
-            current_line_length++;
-        }
-    }
-    if (current_line_length > max_line_length) max_line_length = current_line_length;
+	// Step 0: Find the longest line in the input text
+	int max_line_length = 0, current_line_length = 0;
+	for (const char *c = str; *c; c++) {
+		if (*c == '\n') {
+			if (current_line_length > max_line_length) max_line_length = current_line_length;
+			current_line_length = 0;
+		} else {
+			current_line_length++;
+		}
+	}
+	if (current_line_length > max_line_length) max_line_length = current_line_length;
 
-    for(int i = 0; i < 24; ++i) { // Prevent infinite loops
-        // Step 1: Compute total number of lines
-        int line_count = 1, chars_in_line = 0;
-        for (const char *c = str; *c; c++) {
-            if (*c == '\n' || chars_in_line >= max_line_length) {
-                line_count++;
-                chars_in_line = 0;
-                if (*c == '\n') continue;
-            }
-            chars_in_line++;
-        }
+	int line_count = 1;
+	for(int i = 0; i < 24; ++i) { // Prevent infinite loops
+		// Step 1: Compute total number of lines
+		int chars_in_line = 0;
+		for (const char *c = str; *c; c++) {
+			if (*c == '\n' || chars_in_line >= max_line_length) {
+				line_count++;
+				chars_in_line = 0;
+				if (*c == '\n') continue;
+			}
+			chars_in_line++;
+		}
 
-        // Step 2: Compute effective width-to-height ratio
-        float effective_ratio = ((float)line_count) * ((float)width) / ((float)max_line_length) / ((float)height);
+		// Step 2: Compute effective width-to-height ratio
+		float effective_ratio = ((float)line_count) * ((float)width) / ((float)max_line_length) / ((float)height);
 
-        // Step 3: Adjust max line length
-        if (effective_ratio > char_ratio) {
-            max_line_length *= 1.1; // Too wide, increase
-        } else if (effective_ratio < char_ratio) {
-            max_line_length *= 0.8; // Too narrow, decrease
-        }
-    }
+		// Step 3: Adjust max line length
+		if (effective_ratio > char_ratio) {
+			max_line_length *= 1.1; // Too wide, increase
+		} else if (effective_ratio < char_ratio) {
+			max_line_length *= 0.8; // Too narrow, decrease
+		}
+	}
+	
+	if((float)width / char_ratio < (float)height) {
+		y += height - (int)((float)width / char_ratio);
+	}
 
-    // Compute final character width & height
-    int char_width = (width - (max_line_length-1)*spacing) / max_line_length;
-    int char_height = ((float)char_width) / ((float)char_ratio);
-    if (char_height < 5) char_height = 1;
-    if (char_width < 1) char_width = 1;
+	// Compute final character width & height
+	int char_height = (height - (line_count-1)*line_spacing) / line_count;
+	int char_width = ((float)char_height) * char_ratio;
+	if (char_height < 5) char_height = 1;
+	if (char_width < 1) char_width = 1;
 
-    // Render the text
-    int cursor_x = x, cursor_y = y;
-    int chars_in_line = 0;
+	// Render the text
+	int cursor_x = x, cursor_y = y;
+	int chars_in_line = 0;
 
-    for (const char *c = str; *c; c++) {
-        if (*c == '\n' || chars_in_line >= max_line_length) {
-            cursor_y += char_height + line_spacing;
-            cursor_x = x;
-            chars_in_line = 0;
-            if (*c == '\n') continue;
-        }
+	for (const char *c = str; *c; c++) {
+		if (*c == '\n' || chars_in_line >= max_line_length) {
+			cursor_y += char_height + line_spacing;
+			cursor_x = x;
+			chars_in_line = 0;
+			if (*c == '\n') continue;
+		}
 
-        draw_char(img, *c, cursor_x, cursor_y, char_width, char_height, r, g, b);
-        cursor_x += char_width + spacing;
-        chars_in_line++;
-    }
+		draw_char(img, *c, cursor_x, cursor_y, char_width, char_height, r, g, b);
+		cursor_x += char_width + spacing;
+		chars_in_line++;
+	}
 }
 
 void render_card(Image *img, Entry entry) {
