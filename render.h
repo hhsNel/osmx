@@ -372,11 +372,7 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
     }
     if (current_line_length > max_line_length) max_line_length = current_line_length;
 
-    // Variables for iterative adjustment
-    int prev_attempts[4] = {0, 0, 0, 0}; // Keep track of last few iterations
-    int iteration = 0;
-
-    while (iteration < 20) { // Prevent infinite loops
+    for(int i = 0; i < 24; ++i) { // Prevent infinite loops
         // Step 1: Compute total number of lines
         int line_count = 1, chars_in_line = 0;
         for (const char *c = str; *c; c++) {
@@ -389,28 +385,20 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
         }
 
         // Step 2: Compute effective width-to-height ratio
-        float effective_ratio = ((float)(max_line_length + spacing)) / ((float)(line_count + line_spacing));
+        float effective_ratio = ((float)max_line_length) / ((float)line_count);
 
         // Step 3: Adjust max line length
         if (effective_ratio > char_ratio) {
-            max_line_length *= 1.1; // Too wide, increase
+            max_line_length *= 0.8; // Too wide, increase
         } else if (effective_ratio < char_ratio) {
-            max_line_length *= 0.8; // Too narrow, decrease
+            max_line_length *= 1.1; // Too narrow, decrease
         }
-
-        // Step 4: Check if the last few iterations are similar
-        prev_attempts[iteration % 4] = max_line_length;
-        if (iteration >= 3 && prev_attempts[0] == prev_attempts[1] && prev_attempts[1] == prev_attempts[2] && prev_attempts[2] == prev_attempts[3]) {
-            break; // Stop if the last 4 values are the same
-        }
-
-        iteration++;
     }
 
     // Compute final character width & height
-    int char_width = width / max_line_length;
-    int char_height = char_width / char_ratio;
-    if (char_height < 1) char_height = 1;
+    int char_width = (width - (max_line_length-1)*spacing) / max_line_length;
+    int char_height = ((float)char_width) / ((float)char_ratio);
+    if (char_height < 5) char_height = 1;
     if (char_width < 1) char_width = 1;
 
     // Render the text
