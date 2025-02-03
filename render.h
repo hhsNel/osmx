@@ -10,19 +10,6 @@
 #define HEIGHT 523
 #define HEADER_SIZE 16  // Farbfeld header size
 
-#define MAX_LINE 1024
-
-typedef struct {
-	char name[MAX_LINE];
-	char cost[MAX_LINE];
-	char type[MAX_LINE];
-	char mainType[MAX_LINE];
-	char text[MAX_LINE * 2];
-	char power[MAX_LINE];
-	char toughness[MAX_LINE];
-	char loyalty[MAX_LINE];
-} Entry;
-
 // Simple structure for an image buffer
 typedef struct {
     uint8_t pixels[HEIGHT][WIDTH][3];  // RGB only
@@ -385,13 +372,13 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
         }
 
         // Step 2: Compute effective width-to-height ratio
-        float effective_ratio = ((float)max_line_length) / ((float)line_count);
+        float effective_ratio = ((float)line_count) * ((float)width) / ((float)max_line_length) / ((float)height);
 
         // Step 3: Adjust max line length
         if (effective_ratio > char_ratio) {
-            max_line_length *= 0.8; // Too wide, increase
+            max_line_length *= 1.1; // Too wide, increase
         } else if (effective_ratio < char_ratio) {
-            max_line_length *= 1.1; // Too narrow, decrease
+            max_line_length *= 0.8; // Too narrow, decrease
         }
     }
 
@@ -466,7 +453,7 @@ void render_card(Image *img, Entry entry) {
 
 	// Draw card text
 	draw_ratio_breaking_string(img, entry.text, outer_thickness+border_thickness, outer_thickness+border_thickness+2*line_height+art_area_h, 
-						 card_w - 2*outer_thickness - 2*border_thickness, card_h-2*outer_thickness-border_thickness-2*line_height-art_area_h, 0, 0, 1.5, 0, 0, 0);
+						 card_w - 2*outer_thickness - 2*border_thickness, card_h-2*outer_thickness-border_thickness-2*line_height-art_area_h, 0, 0, 0.6, 0, 0, 0);
 }
 
 #endif // CARD_RENDERER_H

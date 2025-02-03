@@ -1,3 +1,16 @@
+#define MAX_LINE 1024
+
+typedef struct {
+	char name[MAX_LINE];
+	char cost[MAX_LINE];
+	char type[MAX_LINE];
+	char mainType[MAX_LINE];
+	char text[MAX_LINE * 2];
+	char power[MAX_LINE];
+	char toughness[MAX_LINE];
+	char loyalty[MAX_LINE];
+} Entry;
+
 #include "render.h"
 
 int main(int argc, char **argv) {
