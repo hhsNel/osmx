@@ -359,10 +359,11 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
 	}
 	if (current_line_length > max_line_length) max_line_length = current_line_length;
 
-	int line_count = 1;
+	int line_count;
 	for(int i = 0; i < 24; ++i) { // Prevent infinite loops
 		// Step 1: Compute total number of lines
 		int chars_in_line = 0;
+		line_count = 1;
 		for (const char *c = str; *c; c++) {
 			if (*c == '\n' || chars_in_line >= max_line_length) {
 				line_count++;

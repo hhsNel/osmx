@@ -21,7 +21,8 @@ int main(int argc, char **argv) {
 	
 	draw_breaking_string(&img, " !\"#$%&'()*+,-./\n0123456789:;<=>?\n@ABCDEFGHIJKLMNO\nPQRSTUVWXYZ[\\]^_\n`abcdefghijklmno\npqrstuvwxyz{|}~", 16, 256, WIDTH-32, 256, 0, 2, 127, 127, 127);
 	
-	draw_ratio_breaking_string(&img, "This is a test that is very long !!!!!!!!!!!!!!!!!!!!\nAnd has multiple lines\n!!!", 10, 10, 200, 100, 2, 5, 0.6, 255, 255, 255);
+	draw_ratio_breaking_string(&img, "This is a test", 10, 10, 200, 100, 2, 5, 0.6, 255, 255, 255);
+	draw_ratio_breaking_string(&img, "This is a test that is very long !!!!!!!!!!!!!!!!!!!!\nAnd has multiple lines\n!!!", 10, 120, 200, 100, 2, 5, 0.6, 255, 255, 255);
 
 	
 	save_farbfeld("test.ff", &img);
