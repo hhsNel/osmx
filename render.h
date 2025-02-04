@@ -318,7 +318,7 @@ void draw_string(Image *img, const char *str, int x, int y, int width, int heigh
 
 // Draw a string with line breaks
 void draw_breaking_string(Image *img, const char *str, int x, int y, int width, int height, int spacing, int line_spacing, uint8_t r, uint8_t g, uint8_t b) {
-	int line_count = 1, max_line = 0, chars_in_line;
+	int line_count = 1, max_line = 0, chars_in_line = 0;
 	for (const char *c = str; *c; c++) {
 		if (*c == '\n') {
 			++line_count;
@@ -333,7 +333,7 @@ void draw_breaking_string(Image *img, const char *str, int x, int y, int width, 
 	int char_width = (width - (max_line - 1) * spacing) / max_line;
 	int cursor_y = y, cursor_x = x;
 	
-	for (const char *c = str; *c; c++) {
+		for (const char *c = str; *c; c++) {
 		if (*c == '\n') {
 			cursor_y += line_height + spacing;
 			cursor_x = x;
@@ -457,6 +457,36 @@ void render_card(Image *img, Entry entry) {
 	// Draw card text
 	draw_ratio_breaking_string(img, entry.text, outer_thickness+border_thickness, outer_thickness+border_thickness+2*line_height+art_area_h, 
 						 card_w - 2*outer_thickness - 2*border_thickness, card_h-2*outer_thickness-border_thickness-2*line_height-art_area_h, 0, 0, 0.6, 0, 0, 0);
+}
+
+void draw_linew(Image *img, int x1, int y1, int x2, int y2, int width, uint8_t r, uint8_t g, uint8_t b) {
+	if (width < 1) width = 1;
+
+	int dx = abs(x2 - x1), dy = abs(y2 - y1);
+	int sx = (x1 < x2) ? 1 : -1;
+	int sy = (y1 < y2) ? 1 : -1;
+	int err = dx - dy;
+
+	// Determine perpendicular offsets based on direction
+	int wx = (dy == 0) ? 0 : (width / 2) * sy;  // Vertical thickness
+	int wy = (dx == 0) ? 0 : (width / 2) * sx;  // Horizontal thickness
+
+	while (x1 != x2 || y1 != y2) {
+		for (int i = -width / 2; i <= width / 2; i++) {
+			int px = x1 + (dy == 0 ? 0 : i);  // Adjust width along perpendicular
+			int py = y1 + (dx == 0 ? 0 : i);
+
+			if (px >= 0 && px < WIDTH && py >= 0 && py < HEIGHT) {
+				img->pixels[py][px][0] = r;
+				img->pixels[py][px][1] = g;
+				img->pixels[py][px][2] = b;
+			}
+		}
+
+		int e2 = 2 * err;
+		if (e2 > -dy) { err -= dy; x1 += sx; }
+		if (e2 < dx) { err += dx; y1 += sy; }
+	}
 }
 
 #endif // CARD_RENDERER_H
