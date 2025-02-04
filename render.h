@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define WIDTH 375
 #define HEIGHT 523
@@ -377,11 +378,7 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
 		float effective_ratio = ((float)line_count) * ((float)width) / ((float)max_line_length) / ((float)height);
 
 		// Step 3: Adjust max line length
-		if (effective_ratio > char_ratio) {
-			max_line_length *= 1.1; // Too wide, increase
-		} else if (effective_ratio < char_ratio) {
-			max_line_length *= 0.8; // Too narrow, decrease
-		}
+		max_line_length *= sqrt(effective_ratio/char_ratio);
 	}
 	
 	if((float)width / char_ratio < (float)height) {
