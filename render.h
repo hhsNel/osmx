@@ -468,7 +468,7 @@ void draw_mana_symbol(Image *img, char symbol, int x, int y, int size) {
 	draw_circle(img, x, y, size / 2, br, bg, bb);
 
 	// Choose text color to contrast with the background
-	uint8_t r = 127, g = 127, b = 127; // Default: gray text
+	uint8_t r = 192, g = 192, b = 192; // Default: gray text
 	if (symbol == 'W') { r = 0; g = 0; b = 0; }   // Black text on white background
 	if (symbol == 'U') { r = 255; g = 255; b = 255; } // White text on blue background
 	if (symbol == 'B') { r = 200; g = 200; b = 200; } // Gray text on black background

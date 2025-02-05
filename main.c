@@ -33,23 +33,60 @@ void render_cards();
 
 int main(int argc, char **argv) {
 	char input_file[MAX_LINE], output_file[MAX_LINE];
+	input_file[0] = output_file[0] = '\0';
 	char set_name[MAX_LINE], longname[MAX_LINE], release_date[MAX_LINE];
 	
-	int render_flag = 0;
+	int render_flag = 0, edit_flag = 1;
 	for(int i = 1; i < argc; ++i) {
-		if(strcmp(argv[i], "-r") == 0) {
-			render_flag = 1;
+		if(argv[i][0] == '-') {
+			for(char *opt = argv[i]+1; *opt; ++opt) {
+				switch(*opt) {
+					case 'r':
+						render_flag = 1;
+						break;
+					case 'R':
+						render_flag = 0;
+						break;
+					case 'e':
+						edit_flag = 1;
+						break;
+					case 'E':
+						edit_flag = 0;
+						break;
+					case 'i':
+						if(i + 1 >= argc) {
+							printf("Expected another argument after -i\n");
+							exit(1);
+						}
+						strcpy(input_file, argv[++i]);
+						goto next_argument;
+					case 'o':
+						if(i + 1 >= argc) {
+							printf("Expected another argument after -o\n");
+							exit(1);
+						}
+						strcpy(output_file, argv[++i]);
+						goto next_argument;
+				}
+			}
 		}
+		next_argument:
 	}
 	
-	printf("Enter the .osmx filename: ");
-	scanf("%s", input_file);
+	if(!input_file[0]) {
+		printf("Enter the .osmx filename: ");
+		scanf("%s", input_file);
+	}
 	parse_osmx(input_file);
 	
-	prompt_user();
+	if(edit_flag) {
+		prompt_user();
+	}
 	
-	printf("Enter output .xml filename: ");
-	scanf("%s", output_file);
+	if(!output_file[0]) {
+		printf("Enter output .xml filename: ");
+		scanf("%s", output_file);
+	}
 	printf("Enter set name: ");
 	scanf(" %[^\n]s", set_name);
 	printf("Enter long name: ");
