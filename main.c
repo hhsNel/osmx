@@ -195,12 +195,32 @@ int reverse_search_entries(const char *query, int start_index) {
 	return -1;  // No match found
 }
 
+void bulk_replace_text(Entry *entries, int num_entries, const char *old_word, const char *new_word) {
+	for (int i = 0; i < num_entries; i++) {
+		char *pos, buffer[MAX_LINE * 4];  // Buffer to store updated text
+		char *src = entries[i].text;
+		char *dst = buffer;
+
+		while ((pos = strstr(src, old_word))) {
+			size_t len_before = pos - src;
+			strncpy(dst, src, len_before);
+			dst += len_before;
+			strcpy(dst, new_word);
+			dst += strlen(new_word);
+			src = pos + strlen(old_word);
+		}
+		strcpy(dst, src);  // Copy remaining text
+		strcpy(entries[i].text, buffer); // Save changes
+	}
+}
+
+
 void prompt_user() {
 	int i = 0;
 	char last_search[MAX_LINE];
 	while(1) {
 		print_entry(entries[i]);
-		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor? ");
+		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor, (B)ulk replace? ");
 		char choice;
 		scanf(" %c", &choice);
 		getchar();
@@ -291,6 +311,21 @@ void prompt_user() {
 				} else {
 					printf("No matching entries found.\n");
 				}
+				break;
+			case 'B':
+			case 'b':
+				char old_word[MAX_LINE], new_word[MAX_LINE];
+
+				printf("Find: ");
+				fgets(old_word, MAX_LINE, stdin);
+				old_word[strcspn(old_word, "\n")] = '\0'; // Remove newline
+
+				printf("Replace with: ");
+				fgets(new_word, MAX_LINE, stdin);
+				new_word[strcspn(new_word, "\n")] = '\0'; // Remove newline
+
+				bulk_replace_text(entries, entry_count, old_word, new_word);
+				printf("Replaced all occurrences of '%s' with '%s'.\n", old_word, new_word);
 				break;
 		}
 	}
