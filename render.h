@@ -457,6 +457,29 @@ void draw_circle(Image *img, int cx, int cy, int radius, uint8_t r, uint8_t g, u
 	}
 }
 
+void draw_mana_symbol(Image *img, char symbol, int x, int y, int size) {
+	// Draw outer circle (background color)
+	uint8_t br = 0, bg = 0, bb = 0; // Default: black background
+	if (symbol == 'W') { br = 255; bg = 255; bb = 200; } // White
+	if (symbol == 'U') { br = 50; bg = 100; bb = 255; } // Blue
+	if (symbol == 'B') { br = 50; bg = 50; bb = 50; }   // Black
+	if (symbol == 'R') { br = 200; bg = 50; bb = 50; }  // Red
+	if (symbol == 'G') { br = 50; bg = 150; bb = 50; }  // Green
+	draw_circle(img, x, y, size / 2, br, bg, bb);
+
+	// Choose text color to contrast with the background
+	uint8_t r = 127, g = 127, b = 127; // Default: gray text
+	if (symbol == 'W') { r = 0; g = 0; b = 0; }   // Black text on white background
+	if (symbol == 'U') { r = 255; g = 255; b = 255; } // White text on blue background
+	if (symbol == 'B') { r = 200; g = 200; b = 200; } // Gray text on black background
+	if (symbol == 'R') { r = 255; g = 255; b = 255; } // White text on red background
+	if (symbol == 'G') { r = 255; g = 255; b = 255; } // White text on green background
+
+	// Draw text inside circle
+	draw_char(img, symbol, x - size / 4, y - size / 4, size / 2, size / 2, r, g, b);
+}
+
+
 void render_card(Image *img, Entry entry) {
 	// Define card dimensions
 	int card_w = WIDTH, card_h = HEIGHT;
@@ -490,9 +513,14 @@ void render_card(Image *img, Entry entry) {
 	draw_rect(img, outer_thickness+border_thickness, outer_thickness+border_thickness+line_height,
 			  card_w - outer_thickness - border_thickness, outer_thickness+border_thickness+line_height+art_area_h, 0, 0, 0);
 
+	int mana_symbols = 0;
+	for (const char *c = entry.cost; *c; c++) {
+		++mana_symbols;
+		draw_mana_symbol(img, *c, WIDTH-outer_thickness-border_thickness-mana_symbols*line_height+line_height/2, outer_thickness+border_thickness+line_height/2, line_height);
+	}
 	// Draw name
 	draw_string(img, entry.name, outer_thickness+border_thickness, outer_thickness+border_thickness, 
-				card_w - 2*outer_thickness - 2*border_thickness, line_height, 0, 0, 0, 0);
+				card_w - 2*outer_thickness - 2*border_thickness - mana_symbols*line_height, line_height, 0, 0, 0, 0);
 
 	// Draw type line
 	draw_string(img, entry.type, outer_thickness+border_thickness, outer_thickness+border_thickness+line_height+art_area_h, 
