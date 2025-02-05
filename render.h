@@ -479,7 +479,6 @@ void draw_mana_symbol(Image *img, char symbol, int x, int y, int size) {
 	draw_char(img, symbol, x - size / 4, y - size / 4, size / 2, size / 2, r, g, b);
 }
 
-
 void render_card(Image *img, Entry entry) {
 	// Define card dimensions
 	int card_w = WIDTH, card_h = HEIGHT;

@@ -183,15 +183,28 @@ int search_entries(const char *query, int start_index) {
 	return -1;  // No match found
 }
 
+int reverse_search_entries(const char *query, int start_index) {
+	for (int i = 0; i < entry_count; i++) {
+		int index = (start_index + entry_count - i) % entry_count;
+
+		if (strstr(entries[index].name, query) || strstr(entries[index].text, query)) {
+			return index;
+		}
+	}
+
+	return -1;  // No match found
+}
+
 void prompt_user() {
 	int i = 0;
+	char last_search[MAX_LINE];
 	while(1) {
 		print_entry(entries[i]);
 		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor? ");
 		char choice;
 		scanf(" %c", &choice);
 		getchar();
-		
+		int found;
 		switch(choice) {
 			case 'Q':
 			case 'q':
@@ -259,11 +272,19 @@ void prompt_user() {
 			case 'S':
 			case 's':
 			case '/':
-				char search[MAX_LINE];
 				printf("Enter substring search query: ");
-				scanf(" %[^\n]s", search);
+				scanf(" %[^\n]s", last_search);
+			case 'n':
+				found = search_entries(last_search, (i + 1) % entry_count);
 
-				int found = search_entries(search, (i + 1) % entry_count);
+				if (found != -1) {
+					i = found;
+				} else {
+					printf("No matching entries found.\n");
+				}
+				break;
+			case 'N':
+				found = reverse_search_entries(last_search, (i - 1 + entry_count) % entry_count);
 
 				if (found != -1) {
 					i = found;
