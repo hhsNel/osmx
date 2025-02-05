@@ -409,6 +409,54 @@ void draw_ratio_breaking_string(Image *img, const char *str, int x, int y, int w
 	}
 }
 
+void draw_circle(Image *img, int cx, int cy, int radius, uint8_t r, uint8_t g, uint8_t b) {
+	int x = radius, y = 0;
+	int p = 1 - radius; // Initial decision parameter
+
+	while (x >= y) {
+		// Draw 8 symmetrical points
+		img->pixels[cy + y][cx + x][0] = r;
+		img->pixels[cy + y][cx + x][1] = g;
+		img->pixels[cy + y][cx + x][2] = b;
+
+		img->pixels[cy - y][cx + x][0] = r;
+		img->pixels[cy - y][cx + x][1] = g;
+		img->pixels[cy - y][cx + x][2] = b;
+
+		img->pixels[cy + y][cx - x][0] = r;
+		img->pixels[cy + y][cx - x][1] = g;
+		img->pixels[cy + y][cx - x][2] = b;
+
+		img->pixels[cy - y][cx - x][0] = r;
+		img->pixels[cy - y][cx - x][1] = g;
+		img->pixels[cy - y][cx - x][2] = b;
+
+		img->pixels[cy + x][cx + y][0] = r;
+		img->pixels[cy + x][cx + y][1] = g;
+		img->pixels[cy + x][cx + y][2] = b;
+
+		img->pixels[cy - x][cx + y][0] = r;
+		img->pixels[cy - x][cx + y][1] = g;
+		img->pixels[cy - x][cx + y][2] = b;
+
+		img->pixels[cy + x][cx - y][0] = r;
+		img->pixels[cy + x][cx - y][1] = g;
+		img->pixels[cy + x][cx - y][2] = b;
+
+		img->pixels[cy - x][cx - y][0] = r;
+		img->pixels[cy - x][cx - y][1] = g;
+		img->pixels[cy - x][cx - y][2] = b;
+
+		y++;
+		if (p <= 0) {
+			p += 2 * y + 1;
+		} else {
+			x--;
+			p += 2 * (y - x) + 1;
+		}
+	}
+}
+
 void render_card(Image *img, Entry entry) {
 	// Define card dimensions
 	int card_w = WIDTH, card_h = HEIGHT;
@@ -457,36 +505,6 @@ void render_card(Image *img, Entry entry) {
 	// Draw card text
 	draw_ratio_breaking_string(img, entry.text, outer_thickness+border_thickness, outer_thickness+border_thickness+2*line_height+art_area_h, 
 						 card_w - 2*outer_thickness - 2*border_thickness, card_h-2*outer_thickness-border_thickness-2*line_height-art_area_h, 0, 0, 0.6, 0, 0, 0);
-}
-
-void draw_linew(Image *img, int x1, int y1, int x2, int y2, int width, uint8_t r, uint8_t g, uint8_t b) {
-	if (width < 1) width = 1;
-
-	int dx = abs(x2 - x1), dy = abs(y2 - y1);
-	int sx = (x1 < x2) ? 1 : -1;
-	int sy = (y1 < y2) ? 1 : -1;
-	int err = dx - dy;
-
-	// Determine perpendicular offsets based on direction
-	int wx = (dy == 0) ? 0 : (width / 2) * sy;  // Vertical thickness
-	int wy = (dx == 0) ? 0 : (width / 2) * sx;  // Horizontal thickness
-
-	while (x1 != x2 || y1 != y2) {
-		for (int i = -width / 2; i <= width / 2; i++) {
-			int px = x1 + (dy == 0 ? 0 : i);  // Adjust width along perpendicular
-			int py = y1 + (dx == 0 ? 0 : i);
-
-			if (px >= 0 && px < WIDTH && py >= 0 && py < HEIGHT) {
-				img->pixels[py][px][0] = r;
-				img->pixels[py][px][1] = g;
-				img->pixels[py][px][2] = b;
-			}
-		}
-
-		int e2 = 2 * err;
-		if (e2 > -dy) { err -= dy; x1 += sx; }
-		if (e2 < dx) { err += dx; y1 += sy; }
-	}
 }
 
 #endif // CARD_RENDERER_H
