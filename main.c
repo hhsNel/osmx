@@ -75,7 +75,7 @@ int entry_count = 0;
 void parse_osmx(const char *filename);
 int search_entries(const char *query, int start_index);
 void prompt_user();
-void write_xml(const char *filename, const char *set_name, const char *longname, const char *release_date);
+void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date);
 int calculate_cmc(const char *cost);
 void get_unique_colors(const char *cost, char *colors);
 void render_cards();
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
 	input_file[0] = output_file[0] = '\0';
 	char set_name[MAX_LINE], longname[MAX_LINE], release_date[MAX_LINE];
 	
-	int render_flag = 0, edit_flag = 1;
+	int render_flag = 0, edit_flag = 1, output_flag = 0;
 	for(int i = 1; i < argc; ++i) {
 		if(argv[i][0] == '-') {
 			for(char *opt = argv[i]+1; *opt; ++opt) {
@@ -116,6 +116,22 @@ int main(int argc, char **argv) {
 						}
 						strcpy(output_file, argv[++i]);
 						goto next_argument;
+					case 'n':
+						if(i + 1 >= argc) {
+							printf("Expected another argument after -n\n");
+							exit(1);
+						}
+						if(strcmp(argv[++i], "file") == 0) {
+							output_flag = 0;
+						} else if(strcmp(argv[i], "stdout") == 0) {
+							output_flag = 1;
+						} else if(strcmp(argv[i], "none") == 0) {
+							output_flag = 2;
+						} else {
+							printf("Expected file, stdout or none after -n");
+							exit(1);
+						}
+						goto next_argument;
 				}
 			}
 		}
@@ -132,7 +148,7 @@ int main(int argc, char **argv) {
 		prompt_user();
 	}
 	
-	if(!output_file[0]) {
+	if(!output_file[0] && output_flag == 0) {
 		printf("Enter output .xml filename: ");
 		scanf("%s", output_file);
 	}
@@ -149,7 +165,18 @@ int main(int argc, char **argv) {
 		sprintf(release_date, "%d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
 	}
 	
-	write_xml(output_file, set_name, longname, release_date);
+	if(output_flag == 0) {
+		FILE *file = fopen(output_file, "w");
+		if(file) {
+			write_xml(file, set_name, longname, release_date);
+		} else {
+			printf("Cannot open file %s\n", output_file);
+			exit(1);
+		}
+	} else if(output_flag == 1) {
+		write_xml(stdout, set_name, longname, release_date);
+	}
+	
 	if(render_flag) render_cards();
 	return 0;
 }
@@ -415,13 +442,7 @@ void prompt_user() {
 	}
 }
 
-void write_xml(const char *filename, const char *set_name, const char *longname, const char *release_date) {
-	FILE *file = fopen(filename, "w");
-	if (!file) {
-		perror("Error opening file");
-		exit(1);
-	}
-	
+void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date) {
 	fprintf(file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	fprintf(file, "<cockatrice_carddatabase version=\"4\">\n");
 	fprintf(file, "  <sets>\n  <set>\n");
