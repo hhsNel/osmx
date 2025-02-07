@@ -79,9 +79,9 @@ int entry_count = 0;
 void parse_osmx(const char *filename, int verbose);
 int search_entries(const char *query, int start_index);
 void prompt_user();
-void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date);
-int calculate_cmc(const char *cost);
-void get_unique_colors(const char *cost, char *colors);
+void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date, int verbose);
+int calculate_cmc(const char *cost, int verbose);
+void get_unique_colors(const char *cost, char *colors, int verbose);
 void render_cards();
 
 int main(int argc, char **argv) {
@@ -178,13 +178,13 @@ int main(int argc, char **argv) {
 	if(output_flag == 0) {
 		FILE *file = fopen(output_file, "w");
 		if(file) {
-			write_xml(file, set_name, longname, release_date);
+			write_xml(file, set_name, longname, release_date, verbose_flag);
 		} else {
 			printf("Cannot open file %s\n", output_file);
 			exit(1);
 		}
 	} else if(output_flag == 1) {
-		write_xml(stdout, set_name, longname, release_date);
+		write_xml(stdout, set_name, longname, release_date, verbose_flag);
 	}
 	
 	if(render_flag) render_cards();
@@ -225,28 +225,36 @@ void parse_osmx(const char *filename, int verbose) {
 			} else if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
 				// If it's part of text, append with a newline for readability
 				strcat(current->text, line + 1);  // Skip the tab character
+				LOGX("Read text: %s\n", line);
 			} else if (sscanf(line, "\t%[^:]: %[^\n]", key, value) == 2) { 
 				if (strcmp(key, "Cost") == 0) {
 					strcpy(current->cost, value);
+					LOGX("Cost: %s\n", current->cost);
 					reading_text = 0;
 				} else if (strcmp(key, "Type") == 0) {
 					strcpy(current->type, value);
+					LOGX("Type: %s\n", current->type);
 					reading_text = 0;
 				} else if (strcmp(key, "MainType") == 0) { 
 					strcpy(current->mainType, value);
+					LOGX("Main type: %s\n", current->mainType);
 					reading_text = 0;  // Ensure text does not start here
 				} else if (strcmp(key, "Power") == 0) {
 					strcpy(current->power, value);
+					LOGX("Power: %s\n", current->power);
 					reading_text = 0;
 				} else if (strcmp(key, "Toughness") == 0) {
 					strcpy(current->toughness, value);
+					LOGX("Toughness: %s\n", current->toughness);
 					reading_text = 0;
 				} else if (strcmp(key, "Loyalty") == 0) {
 					strcpy(current->loyalty, value);
+					LOGX("Loyalty: %s\n", current->loyalty);
 					reading_text = 0;
 				}
 			} else if (strcmp(line, "\tText:\n") == 0) {
 				reading_text = 1;  // Start capturing multi-line text
+				LOG("Started reading text\n");
 			} else if (strcmp(line, "\tMetadata:\n") == 0) {
 				reading_text = 0;
 			}
@@ -455,7 +463,7 @@ void prompt_user() {
 	}
 }
 
-void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date) {
+void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date, int verbose) {
 	fprintf(file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	fprintf(file, "<cockatrice_carddatabase version=\"4\">\n");
 	fprintf(file, "  <sets>\n  <set>\n");
@@ -473,9 +481,9 @@ void write_xml(FILE *file, const char *set_name, const char *longname, const cha
 		fprintf(file, "	  <type>%s</type>\n", entries[i].type);
 		fprintf(file, "	  <maintype>%s</maintype>\n", entries[i].mainType);
 		fprintf(file, "	  <manacost>%s</manacost>\n", entries[i].cost);
-		fprintf(file, "	  <cmc>%d</cmc>\n", calculate_cmc(entries[i].cost));
+		fprintf(file, "	  <cmc>%d</cmc>\n", calculate_cmc(entries[i].cost, verbose));
 		char colors[MAX_LINE] = "";
-		get_unique_colors(entries[i].cost, colors);
+		get_unique_colors(entries[i].cost, colors, verbose);
 		fprintf(file, "	  <colors>%s</colors>\n", colors);
 		fprintf(file, "	  <coloridentity>%s</coloridentity>\n", colors);
 		if (strlen(entries[i].power) > 0 && strlen(entries[i].toughness) > 0) {
@@ -493,7 +501,8 @@ void write_xml(FILE *file, const char *set_name, const char *longname, const cha
 	fclose(file);
 }
 
-int calculate_cmc(const char *cost) {
+int calculate_cmc(const char *cost, int verbose) {
+	LOGX("Mana cost: %s\n", cost);
 	int cmc = 0;
 	while (*cost) {
 		if (isdigit(*cost)) {
@@ -505,10 +514,12 @@ int calculate_cmc(const char *cost) {
 		}
 		cost++;
 	}
+	LOGX("Calculated CMC: %d\n", cmc);
 	return cmc > 0 ? cmc : 0; // Ensure CMC is never negative
 }
 
-void get_unique_colors(const char *cost, char *colors) {
+void get_unique_colors(const char *cost, char *colors, int verbose) {
+	LOGX("Mana cost: %s\n", cost);
 	int color_mask = 0;
 	const char *order = "WUBRG"; // Define the order of colors
 	char *ptr = colors;
@@ -535,6 +546,7 @@ void get_unique_colors(const char *cost, char *colors) {
 	if (ptr == colors) {
 		strcpy(colors, "C"); // Default to colorless if no colors found
 	}
+	LOGX("Unique colors: %s\n", colors);
 }
 
 void render_cards() {
