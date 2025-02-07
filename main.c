@@ -7,6 +7,9 @@
 #define MAX_LINE 1024
 #define MAX_ENTRIES 100
 
+#define LOG(msg) if(verbose) printf("\t[v]  " msg);
+#define LOGX(msg, ...) if(verbose) printf("\t[v+] " msg, __VA_ARGS__);
+
 typedef struct Metadata {
 	char key[MAX_LINE];
 	char value[MAX_LINE];
@@ -26,7 +29,8 @@ typedef struct {
 
 } Entry;
 
-void add_metadata(Metadata **head, const char *key, const char *value) {
+void add_metadata(Metadata **head, const char *key, const char *value, int verbose) {
+	LOGX("Adding metadata: %s\n", key);
 	Metadata *new_entry = malloc(sizeof(Metadata));
 	if (!new_entry) return;
 	strncpy(new_entry->key, key, MAX_LINE);
@@ -72,7 +76,7 @@ int entry_count = 0;
 
 #include "render.h"
 
-void parse_osmx(const char *filename);
+void parse_osmx(const char *filename, int verbose);
 int search_entries(const char *query, int start_index);
 void prompt_user();
 void write_xml(FILE *file, const char *set_name, const char *longname, const char *release_date);
@@ -85,7 +89,7 @@ int main(int argc, char **argv) {
 	input_file[0] = output_file[0] = '\0';
 	char set_name[MAX_LINE], longname[MAX_LINE], release_date[MAX_LINE];
 	
-	int render_flag = 0, edit_flag = 1, output_flag = 0;
+	int render_flag = 0, edit_flag = 1, output_flag = 0, verbose_flag = 0;
 	for(int i = 1; i < argc; ++i) {
 		if(argv[i][0] == '-') {
 			for(char *opt = argv[i]+1; *opt; ++opt) {
@@ -101,6 +105,12 @@ int main(int argc, char **argv) {
 						break;
 					case 'E':
 						edit_flag = 0;
+						break;
+					case 'v':
+						verbose_flag = 1;
+						break;
+					case 'V':
+						verbose_flag = 0;
 						break;
 					case 'i':
 						if(i + 1 >= argc) {
@@ -142,7 +152,7 @@ int main(int argc, char **argv) {
 		printf("Enter the .osmx filename: ");
 		scanf("%s", input_file);
 	}
-	parse_osmx(input_file);
+	parse_osmx(input_file, verbose_flag);
 	
 	if(edit_flag) {
 		prompt_user();
@@ -181,7 +191,7 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-void parse_osmx(const char *filename) {
+void parse_osmx(const char *filename, int verbose) {
 	FILE *file = fopen(filename, "r");
 	if (!file) {
 		perror("Error opening file");
@@ -194,9 +204,12 @@ void parse_osmx(const char *filename) {
 
 	while (fgets(line, MAX_LINE, file)) {
 		if (line[0] != '\t' && line[0] != '\n') {
+			LOG("New entry\n");
 			// New entry
 			current = &entries[entry_count++];
+			LOGX("Number of entries: %d\n", entry_count);
 			strcpy(current->name, line);
+			LOGX("Entry name: %s\n", current->name);
 			current->text[0] = '\0';
 			current->power[0] = '\0';
 			current->toughness[0] = '\0';
@@ -205,9 +218,9 @@ void parse_osmx(const char *filename) {
 		} else {
 			if(line[0] == '\t' && line[1] == '\t') {
 				char key[MAX_LINE], value[MAX_LINE];
-
+				LOG("Metadata detected\n");
 				if (sscanf(line + 2, "%[^:]: %[^\n]", key, value) == 2) {
-					add_metadata(&current->metadata, key, value);
+					add_metadata(&current->metadata, key, value, verbose);
 				}
 			} else if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
 				// If it's part of text, append with a newline for readability
@@ -436,7 +449,7 @@ void prompt_user() {
 					if (get_metadata(entries[i].metadata, key)) {
 						edit_metadata(entries[i].metadata, key, value);
 					} else {
-						add_metadata(&entries[i].metadata, key, value);
+						add_metadata(&entries[i].metadata, key, value, 0);
 					}
 		}
 	}
