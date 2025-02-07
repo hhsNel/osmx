@@ -7,6 +7,12 @@
 #define MAX_LINE 1024
 #define MAX_ENTRIES 100
 
+typedef struct Metadata {
+	char key[MAX_LINE];
+	char value[MAX_LINE];
+	struct Metadata *next;
+} Metadata;
+
 typedef struct {
 	char name[MAX_LINE];
 	char cost[MAX_LINE];
@@ -16,7 +22,50 @@ typedef struct {
 	char power[MAX_LINE];
 	char toughness[MAX_LINE];
 	char loyalty[MAX_LINE];
+	Metadata *metadata;  // Linked list of metadata
+
 } Entry;
+
+void add_metadata(Metadata **head, const char *key, const char *value) {
+	Metadata *new_entry = malloc(sizeof(Metadata));
+	if (!new_entry) return;
+	strncpy(new_entry->key, key, MAX_LINE);
+	strncpy(new_entry->value, value, MAX_LINE);
+	new_entry->next = *head;
+	*head = new_entry;
+}
+
+char *get_metadata(Metadata *head, const char *key) {
+	while (head) {
+		if (strcmp(head->key, key) == 0) return head->value;
+		head = head->next;
+	}
+	return NULL;  // Not found
+}
+
+void edit_metadata(Metadata *head, const char *key, const char *new_value) {
+    while (head) {
+        if (strcmp(head->key, key) == 0) {
+            strncpy(head->value, new_value, MAX_LINE);
+            return;
+        }
+        head = head->next;
+    }
+}
+
+void delete_metadata(Metadata **head, const char *key) {
+	Metadata *curr = *head, *prev = NULL;
+	while (curr) {
+		if (strcmp(curr->key, key) == 0) {
+			if (prev) prev->next = curr->next;
+			else *head = curr->next;
+			free(curr);
+			return;
+		}
+		prev = curr;
+		curr = curr->next;
+	}
+}
 
 Entry entries[MAX_ENTRIES];
 int entry_count = 0;
@@ -220,7 +269,7 @@ void prompt_user() {
 	char last_search[MAX_LINE];
 	while(1) {
 		print_entry(entries[i]);
-		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor, (B)ulk replace? ");
+		printf("(A)pprove, (R)eject, (E)dit, (S)earch, (Q)uit editor, (B)ulk replace, (M)etadata edit? ");
 		char choice;
 		scanf(" %c", &choice);
 		getchar();
@@ -327,6 +376,22 @@ void prompt_user() {
 				bulk_replace_text(entries, entry_count, old_word, new_word);
 				printf("Replaced all occurrences of '%s' with '%s'.\n", old_word, new_word);
 				break;
+			case 'M':
+			case 'm':
+					char key[MAX_LINE], value[MAX_LINE];
+					printf("Enter metadata key: ");
+					fgets(key, MAX_LINE, stdin);
+					key[strcspn(key, "\n")] = '\0';
+
+					printf("Enter new value: ");
+					fgets(value, MAX_LINE, stdin);
+					value[strcspn(value, "\n")] = '\0';
+
+					if (get_metadata(entries[i].metadata, key)) {
+						edit_metadata(entries[i].metadata, key, value);
+					} else {
+						add_metadata(&entries[i].metadata, key, value);
+					}
 		}
 	}
 }
