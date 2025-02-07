@@ -176,7 +176,13 @@ void parse_osmx(const char *filename) {
 			current->loyalty[0] = '\0';
 			reading_text = 0;
 		} else {
-			if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
+			if(line[0] == '\t' && line[1] == '\t') {
+				char key[MAX_LINE], value[MAX_LINE];
+
+				if (sscanf(line + 2, "%[^:]: %[^\n]", key, value) == 2) {
+					add_metadata(&current->metadata, key, value);
+				}
+			} else if (reading_text && strcmp(line, "\tMetadata:\n") != 0) {
 				// If it's part of text, append with a newline for readability
 				strcat(current->text, line + 1);  // Skip the tab character
 			} else if (sscanf(line, "\t%[^:]: %[^\n]", key, value) == 2) { 
@@ -209,6 +215,19 @@ void parse_osmx(const char *filename) {
 	fclose(file);
 }
 
+void print_metadata(Metadata *head) {
+	if (!head) {
+		printf("No metadata.\n");
+		return;
+	}
+
+	printf("Metadata:\n");
+	while (head) {
+		printf("\t%s: %s\n", head->key, head->value);
+		head = head->next;
+	}
+}
+
 void print_entry(Entry entry) {
 	printf("\nEntry: %s\nCost: %s\nType: %s\nMainType: %s\nText: %s\n",
 		entry.name, entry.cost, entry.type, entry.mainType, entry.text);
@@ -218,6 +237,7 @@ void print_entry(Entry entry) {
 	if (strlen(entry.loyalty) > 0) {
 		printf("Loyalty: %s\n", entry.loyalty);
 	}
+	print_metadata(entry.metadata);
 }
 
 int search_entries(const char *query, int start_index) {
@@ -262,7 +282,6 @@ void bulk_replace_text(Entry *entries, int num_entries, const char *old_word, co
 		strcpy(entries[i].text, buffer); // Save changes
 	}
 }
-
 
 void prompt_user() {
 	int i = 0;
